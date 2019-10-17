@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Linux内核驱动调试 | 岁月静好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Cyril Taylor,Cyril's Blog">
+  
+  <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899[  391.9114">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux内核驱动调试">
+<meta property="og:url" content="https://cyriltaylor.github.io/posts/1458029102/index.html">
+<meta property="og:site_name" content="岁月静好">
+<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899[  391.9114">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-14T16:26:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux内核驱动调试">
+<meta name="twitter:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899[  391.9114">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script src="../../js/pace.min.js"></script>
+  
+
+  
+  
+
+<link rel="stylesheet" href="/css/prism-xonokai.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="../../index.html" class="left">
+                    <span class="site-title">Cyril&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="../../index.html">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="../../archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="../../about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="../../index.html">
+                    <img src="../../images/logo.png" alt="logo" width="130px" height="130px">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Cyril&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一枚系统工程师自用的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Github" target="_blank" href="//github.com/CyrilTaylor">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//www.weibo.com/CyrilTaylor">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-blog/Linux/Linux内核驱动调试" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      <span class="article-type type-1">原</span>Linux内核驱动调试
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-10-14
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">[  391.911450] Unable to handle kernel NULL pointer dereference at virtual address 00000018</span><br><span class="line">[  391.919552] pgd = e8ca0f1c</span><br><span class="line">[  391.922256] [00000018] *pgd=6da5e003, *pmd=be8c2003</span><br><span class="line">[  391.927137] Internal error: Oops: 207 [#1] SMP ARM</span><br><span class="line">[  391.931921] Modules linked in: asix usbnet btrfs nls_ascii zstd_compress brcmfmac raid6_pq brcmutil libcrc32c cfg80211 lzo_compress zlib_deflate zstd_decompress xxhash g_mass_storage</span><br><span class="line">[  391.948192] CPU: 1 PID: 2000 Comm: cat Not tainted 4.19.69-g37208387d-dirty #8</span><br><span class="line">[  391.955403] Hardware name: Allwinner sun8i Family</span><br><span class="line">[  391.960115] PC is at serial_sunxi_modem_status+0xc/0xdc</span><br><span class="line">[  391.965336] LR is at serial_sunxi_get_mctrl+0xc/0x60</span><br><span class="line">[  391.970294] pc : [&lt;c05f9078&gt;]    lr : [&lt;c05f9154&gt;]    psr: 600e0093</span><br><span class="line">[  391.976551] sp : ee88dde8  ip : 00000015  fp : ede50058</span><br><span class="line">[  391.981768] r10: 00000004  r9 : c1062d88  r8 : ee869c74</span><br><span class="line">[  391.986987] r7 : 00000004  r6 : 000003e0  r5 : c10633f0  r4 : c10633f0</span><br><span class="line">[  391.993503] r3 : 00000000  r2 : 00000002  r1 : 00000000  r0 : c10633f0</span><br><span class="line">[  392.000023] Flags: nZCv  IRQs off  FIQs on  Mode SVC_32  ISA ARM  Segment none</span><br><span class="line">[  392.007234] Control: 30c5387d  Table: 684fa2c0  DAC: 344ff332</span><br><span class="line">[  392.012973] Process cat (pid: 2000, stack limit = 0x4c81470b)</span><br><span class="line">[  392.018712] Stack: (0xee88dde8 to 0xee88e000)</span><br><span class="line">[  392.023067] dde0:                   c10633f0 c10633f0 000003e0 c05f9154 c10633f0 ee869be0</span><br><span class="line">[  392.031235] de00: 000003e0 c05eea60 c0b77c10 00000040 00000000 00000000 00000000 00000000</span><br><span class="line">[  392.039404] de20: c1008d14 00000000 c0b77c44 c0b77c10 c0b77c18 c1008d14 00000fb8 ffeee000</span><br><span class="line">[  392.047572] de40: d2eb0f8f ee868800 dc7678f0 00000055 006000c0 000b6bf7 b6bf7000 d2eb0f8f</span><br><span class="line">[  392.055740] de60: e84fa2d0 ede50058 00000001 007000c0 ee88df78 b6bf8000 00000000 00000000</span><br><span class="line">[  392.063907] de80: ece8ccc0 c037f250 dc7678f0 ede50070 00020000 b6bf8000 ede50088 ece1d480</span><br><span class="line">[  392.072076] dea0: 00000a06 ee983600 c037f054 00000000 ee88df78 b6bf8000 00000000 00020000</span><br><span class="line">[  392.080244] dec0: 00020000 c03c38bc c1008d14 ece8ccc0 c03c384c c035a888 00000000 c1008d14</span><br><span class="line">[  392.088413] dee0: 00000a06 b6bf7004 c100e734 ee88dfb0 00002710 b6f01000 b6ee5120 c02310b8</span><br><span class="line">[  392.096582] df00: 00022000 00022000 b6bf7000 00000022 00000003 00000000 00000073 dc114200</span><br><span class="line">[  392.104750] df20: 00000022 d2eb0f8f 000b6bf7 00020000 ece8ccc0 ffffe000 ee88df78 b6bf8000</span><br><span class="line">[  392.112918] df40: 00000000 00020000 00020000 c035aa40 00022000 00000003 b6ee5120 ece8ccc0</span><br><span class="line">[  392.121086] df60: c1008d14 ece8ccc0 b6bf8000 00000000 00000000 c035b000 00000000 00000000</span><br><span class="line">[  392.129254] df80: ee88df7c d2eb0f8f 00020000 7fffe000 000165d0 00000003 c0201324 ee88c000</span><br><span class="line">[  392.137423] dfa0: 00000003 c0201120 00020000 7fffe000 00000003 b6bf8000 00020000 000271c4</span><br><span class="line">[  392.145592] dfc0: 00020000 7fffe000 000165d0 00000003 00000003 00000000 00000000 00020000</span><br><span class="line">[  392.153759] dfe0: 00000000 bec97ab4 0001396d b6ea0f16 000e0030 00000003 00000000 00000000</span><br><span class="line">[  392.161942] [&lt;c05f9078&gt;] (serial_sunxi_modem_status) from [&lt;c05f9154&gt;] (serial_sunxi_get_mctrl+0xc/0x60)</span><br><span class="line">[  392.171417] [&lt;c05f9154&gt;] (serial_sunxi_get_mctrl) from [&lt;c05eea60&gt;] (uart_proc_show+0x1ac/0x40c)</span><br><span class="line">[  392.180199] [&lt;c05eea60&gt;] (uart_proc_show) from [&lt;c037f250&gt;] (seq_read+0x1fc/0x478)</span><br><span class="line">[  392.187768] [&lt;c037f250&gt;] (seq_read) from [&lt;c03c38bc&gt;] (proc_reg_read+0x70/0x88)</span><br><span class="line">[  392.195078] [&lt;c03c38bc&gt;] (proc_reg_read) from [&lt;c035a888&gt;] (__vfs_read+0x2c/0x154)</span><br><span class="line">[  392.202644] [&lt;c035a888&gt;] (__vfs_read) from [&lt;c035aa40&gt;] (vfs_read+0x90/0x154)</span><br><span class="line">[  392.209776] [&lt;c035aa40&gt;] (vfs_read) from [&lt;c035b000&gt;] (ksys_read+0x60/0xc0)</span><br><span class="line">[  392.216735] [&lt;c035b000&gt;] (ksys_read) from [&lt;c0201120&gt;] (ret_fast_syscall+0x0/0x4c)</span><br><span class="line">[  392.224293] Exception stack(0xee88dfa8 to 0xee88dff0)</span><br><span class="line">[  392.229341] dfa0:                   00020000 7fffe000 00000003 b6bf8000 00020000 000271c4</span><br><span class="line">[  392.237509] dfc0: 00020000 7fffe000 000165d0 00000003 00000003 00000000 00000000 00020000</span><br><span class="line">[  392.245674] dfe0: 00000000 bec97ab4 0001396d b6ea0f16</span><br><span class="line">[  392.250725] Code: c0a4cb30 e92d4070 e1a05000 e5903008 (e5d34018) </span><br><span class="line">[  392.256813] ---[ end trace fa9691d56c9fdb90 ]---</span><br><span class="line">[  392.261425] Kernel panic - not syncing: Fatal exception</span><br><span class="line">[  392.266656] CPU2: stopping</span><br><span class="line">[  392.269375] CPU: 2 PID: 0 Comm: swapper/2 Tainted: G      D           4.19.69-g37208387d-dirty #8</span><br><span class="line">[  392.278232] Hardware name: Allwinner sun8i Family</span><br><span class="line">[  392.282946] [&lt;c022ca00&gt;] (unwind_backtrace) from [&lt;c0229128&gt;] (show_stack+0x10/0x14)</span><br><span class="line">[  392.290689] [&lt;c0229128&gt;] (show_stack) from [&lt;c09e34e0&gt;] (dump_stack+0x84/0x98)</span><br><span class="line">[  392.297907] [&lt;c09e34e0&gt;] (dump_stack) from [&lt;c022b8a8&gt;] (handle_IPI+0xf4/0x19c)</span><br><span class="line">[  392.305213] [&lt;c022b8a8&gt;] (handle_IPI) from [&lt;c05811e4&gt;] (gic_handle_irq+0x74/0x78)</span><br><span class="line">[  392.312778] [&lt;c05811e4&gt;] (gic_handle_irq) from [&lt;c0201b38&gt;] (__irq_svc+0x58/0x74)</span><br><span class="line">[  392.320249] Exception stack(0xee89bf58 to 0xee89bfa0)</span><br><span class="line">[  392.325294] bf40:                                                       00000000 002ee53c</span><br><span class="line">[  392.333462] bf60: eedcd670 c0236200 ee89a000 c1008d48 c1008d90 00000004 00000000 00000000</span><br><span class="line">[  392.341631] bf80: c0e6aa70 ee89bfb0 c1008d48 ee89bfa8 c02264dc c02264e0 60010013 ffffffff</span><br><span class="line">[  392.349802] [&lt;c0201b38&gt;] (__irq_svc) from [&lt;c02264e0&gt;] (arch_cpu_idle+0x34/0x38)</span><br><span class="line">[  392.357195] [&lt;c02264e0&gt;] (arch_cpu_idle) from [&lt;c026893c&gt;] (do_idle+0x150/0x290)</span><br><span class="line">[  392.364585] [&lt;c026893c&gt;] (do_idle) from [&lt;c0268d0c&gt;] (cpu_startup_entry+0x18/0x1c)</span><br><span class="line">[  392.372148] [&lt;c0268d0c&gt;] (cpu_startup_entry) from [&lt;4020240c&gt;] (0x4020240c)</span><br><span class="line">[  392.379100] CPU0: stopping</span><br><span class="line">[  392.381810] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G      D           4.19.69-g37208387d-dirty #8</span><br><span class="line">[  392.390666] Hardware name: Allwinner sun8i Family</span><br><span class="line">[  392.395372] [&lt;c022ca00&gt;] (unwind_backtrace) from [&lt;c0229128&gt;] (show_stack+0x10/0x14)</span><br><span class="line">[  392.403111] [&lt;c0229128&gt;] (show_stack) from [&lt;c09e34e0&gt;] (dump_stack+0x84/0x98)</span><br><span class="line">[  392.410327] [&lt;c09e34e0&gt;] (dump_stack) from [&lt;c022b8a8&gt;] (handle_IPI+0xf4/0x19c)</span><br><span class="line">[  392.417631] [&lt;c022b8a8&gt;] (handle_IPI) from [&lt;c05811e4&gt;] (gic_handle_irq+0x74/0x78)</span><br><span class="line">[  392.425194] [&lt;c05811e4&gt;] (gic_handle_irq) from [&lt;c0201b38&gt;] (__irq_svc+0x58/0x74)</span><br><span class="line">[  392.432665] Exception stack(0xc1001f00 to 0xc1001f48)</span><br><span class="line">[  392.437714] 1f00: 00000000 007016cc eedab670 c0236200 c1000000 c1008d48 c1008d90 00000001</span><br><span class="line">[  392.445882] 1f20: 00000000 00000000 c0e6aa70 c1001f58 c1008d48 c1001f50 c02264dc c02264e0</span><br><span class="line">[  392.454046] 1f40: 600e0013 ffffffff</span><br><span class="line">[  392.457535] [&lt;c0201b38&gt;] (__irq_svc) from [&lt;c02264e0&gt;] (arch_cpu_idle+0x34/0x38)</span><br><span class="line">[  392.464925] [&lt;c02264e0&gt;] (arch_cpu_idle) from [&lt;c026893c&gt;] (do_idle+0x150/0x290)</span><br><span class="line">[  392.472315] [&lt;c026893c&gt;] (do_idle) from [&lt;c0268d0c&gt;] (cpu_startup_entry+0x18/0x1c)</span><br><span class="line">[  392.479880] [&lt;c0268d0c&gt;] (cpu_startup_entry) from [&lt;c0e00d10&gt;] (start_kernel+0x41c/0x444)</span><br><span class="line">[  392.488046] CPU3: stopping</span><br><span class="line">[  392.490756] CPU: 3 PID: 0 Comm: swapper/3 Tainted: G      D           4.19.69-g37208387d-dirty #8</span><br><span class="line">[  392.499612] Hardware name: Allwinner sun8i Family</span><br><span class="line">[  392.504318] [&lt;c022ca00&gt;] (unwind_backtrace) from [&lt;c0229128&gt;] (show_stack+0x10/0x14)</span><br><span class="line">[  392.512057] [&lt;c0229128&gt;] (show_stack) from [&lt;c09e34e0&gt;] (dump_stack+0x84/0x98)</span><br><span class="line">[  392.519273] [&lt;c09e34e0&gt;] (dump_stack) from [&lt;c022b8a8&gt;] (handle_IPI+0xf4/0x19c)</span><br><span class="line">[  392.526576] [&lt;c022b8a8&gt;] (handle_IPI) from [&lt;c05811e4&gt;] (gic_handle_irq+0x74/0x78)</span><br><span class="line">[  392.534140] [&lt;c05811e4&gt;] (gic_handle_irq) from [&lt;c0201b38&gt;] (__irq_svc+0x58/0x74)</span><br><span class="line">[  392.541611] Exception stack(0xee89df58 to 0xee89dfa0)</span><br><span class="line">[  392.546655] df40:                                                       00000000 0011eb94</span><br><span class="line">[  392.554824] df60: eedde670 c0236200 ee89c000 c1008d48 c1008d90 00000008 00000000 00000000</span><br><span class="line">[  392.562992] df80: c0e6aa70 ee89dfb0 c1008d48 ee89dfa8 c02264dc c02264e0 600f0013 ffffffff</span><br><span class="line">[  392.571162] [&lt;c0201b38&gt;] (__irq_svc) from [&lt;c02264e0&gt;] (arch_cpu_idle+0x34/0x38)</span><br><span class="line">[  392.578552] [&lt;c02264e0&gt;] (arch_cpu_idle) from [&lt;c026893c&gt;] (do_idle+0x150/0x290)</span><br><span class="line">[  392.585942] [&lt;c026893c&gt;] (do_idle) from [&lt;c0268d0c&gt;] (cpu_startup_entry+0x18/0x1c)</span><br><span class="line">[  392.593504] [&lt;c0268d0c&gt;] (cpu_startup_entry) from [&lt;4020240c&gt;] (0x4020240c)</span><br><span class="line">[  392.600462] Rebooting in 10 seconds..</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">prebuilts/gcc/linux-x86/arm/arm-eabi-6.3.1/bin/arm-eabi-nm out/linux-maxtropy_mxfitow_defconfig/vmlinux | grep -nir <span class="string">"serial_sunxi_modem_status"</span></span><br><span class="line">Binary file out/linux-maxtropy_mxfitow_defconfig/vmlinux matches</span><br><span class="line">out/linux-maxtropy_mxfitow_defconfig/.tmp_System.map:18523:c05f906c t serial_sunxi_modem_status</span><br><span class="line">out/linux-maxtropy_mxfitow_defconfig/System.map:18523:c05f906c t serial_sunxi_modem_status</span><br><span class="line"></span><br><span class="line">prebuilts/gcc/linux-x86/arm/arm-eabi-6.3.1/bin/arm-eabi-addr2line -afispe out/linux-maxtropy_mxfitow_defconfig/vmlinux c05f9078</span><br><span class="line">0xc05f9078: __raw_readb at io.h:108</span><br><span class="line"> (inlined by) serial_in at serial_sunxi.c:155</span><br><span class="line"> (inlined by) serial_sunxi_modem_status at serial_sunxi.c:333</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Usage: prebuilts/gcc/linux-x86/arm/arm-eabi-6.3.1/bin/arm-eabi-addr2line [option(s)] [addr(s)]</span><br><span class="line"> Convert addresses into line number/file name pairs.</span><br><span class="line"> If no addresses are specified on the command line, they will be read from stdin</span><br><span class="line"> The options are:</span><br><span class="line">  @&lt;file&gt;                Read options from &lt;file&gt;</span><br><span class="line">  -a --addresses         Show addresses</span><br><span class="line">  -b --target=&lt;bfdname&gt;  Set the binary file format</span><br><span class="line">  -e --exe=&lt;executable&gt;  Set the input file name (default is a.out)</span><br><span class="line">  -i --inlines           Unwind inlined functions</span><br><span class="line">  -j --section=&lt;name&gt;    Read section-relative offsets instead of addresses</span><br><span class="line">  -p --pretty-print      Make the output easier to read for humans</span><br><span class="line">  -s --basenames         Strip directory names</span><br><span class="line">  -f --functions         Show function names</span><br><span class="line">  -C --demangle[=style]  Demangle function names</span><br><span class="line">  -h --help              Display this information</span><br><span class="line">  -v --version           Display the program&apos;s version</span><br></pre></td></tr></table></figure>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年10月15日 00:26</p>
+
+            <p>版权声明：本文为<a href="https://cyriltaylor.github.io">Cyril Taylor</a>原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。</p>
+
+        <p>本文链接： <a class="post-url" href="" title="Linux内核驱动调试">https://cyriltaylor.github.io/posts/1458029102/</a></p>
+        <footer>
+
+
+
+
+
+            <a href="https://cyriltaylor.github.io">
+                <img src="../../images/logo.png" alt="Cyril Taylor">
+                Cyril Taylor
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="../../images/wechat_code.png" alt="打赏二维码" width="300" height="300">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="../../images/wechat_code.png">
+                <img class="reward-select-item-wechat" src="../../images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="../../images/alipay_code.png">
+                <img class="reward-select-item-alipay" src="../../images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://cyriltaylor.github.io/posts/1458029102/&title=《Linux内核驱动调试》 — 岁月静好&pic=https://cyriltaylor.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://cyriltaylor.github.io/posts/1458029102/&title=《Linux内核驱动调试》 — 岁月静好&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://cyriltaylor.github.io/posts/1458029102/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux内核驱动调试》 — 岁月静好&url=https://cyriltaylor.github.io/posts/1458029102/&via=https://cyriltaylor.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://cyriltaylor.github.io/posts/1458029102/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://cyriltaylor.github.io/posts/1458029102/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="../3397013201/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Linux内核API参考手册</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 Cyril Taylor<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://cyriltaylor.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="../../categories/C-C/">C/C++</a><a class="category-link" href="../../categories/Kotlin/">Kotlin</a><a class="category-link" href="../../categories/Linux/">Linux</a><a class="category-link" href="../../categories/shell/">shell</a><a class="category-link" href="../../categories/机器学习/">机器学习</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="../../tags/C-C/" style="font-size: 20px;">C/C++</a> <a href="../../tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="../../tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="../../tags/Linux/" style="font-size: 20px;">Linux</a> <a href="../../tags/Python/" style="font-size: 10px;">Python</a> <a href="../../tags/kernel-API/" style="font-size: 10px;">kernel API</a> <a href="../../tags/shell/" style="font-size: 10px;">shell</a> <a href="../../tags/zsh/" style="font-size: 10px;">zsh</a> <a href="../../tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="../../tags/编程/" style="font-size: 10px;">编程</a> <a href="../../tags/编程技巧/" style="font-size: 10px;">编程技巧</a> <a href="../../tags/编程规范/" style="font-size: 10px;">编程规范</a> <a href="../../tags/设备树/" style="font-size: 10px;">设备树</a> <a href="../../tags/高级特性/" style="font-size: 10px;">高级特性</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="../../index.html">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="../../archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="../../about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="../../tags/C-C/" style="font-size: 20px;">C/C++</a> <a href="../../tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="../../tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="../../tags/Linux/" style="font-size: 20px;">Linux</a> <a href="../../tags/Python/" style="font-size: 10px;">Python</a> <a href="../../tags/kernel-API/" style="font-size: 10px;">kernel API</a> <a href="../../tags/shell/" style="font-size: 10px;">shell</a> <a href="../../tags/zsh/" style="font-size: 10px;">zsh</a> <a href="../../tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="../../tags/编程/" style="font-size: 10px;">编程</a> <a href="../../tags/编程技巧/" style="font-size: 10px;">编程技巧</a> <a href="../../tags/编程规范/" style="font-size: 10px;">编程规范</a> <a href="../../tags/设备树/" style="font-size: 10px;">设备树</a> <a href="../../tags/高级特性/" style="font-size: 10px;">高级特性</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="../../js/search.js"></script>
+<script src="../../js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="../../js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="../../js/animate.js"></script>
+
+
+  <script src="../../js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

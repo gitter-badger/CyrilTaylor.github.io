@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>C++进阶 | 岁月静好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Cyril Taylor,Cyril's Blog">
+  
+  <meta name="description" content="1. 程序虚拟存储器  1.1. 只读存储区 1.2. 堆/栈对比 1.3. 自由存储区   2. new和malloc的区别 3. 关键字static、const、volatile  3.1. static  3.1.1. 面向过程设计中的static   3.2. 面向对象设计中的static 3.3. const  3.3.1. const修饰成员变量 3.3.2. const修饰函数参">
+<meta name="keywords" content="C&#x2F;C++,高级特性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++进阶">
+<meta property="og:url" content="https://cyriltaylor.github.io/posts/1473815809/index.html">
+<meta property="og:site_name" content="岁月静好">
+<meta property="og:description" content="1. 程序虚拟存储器  1.1. 只读存储区 1.2. 堆/栈对比 1.3. 自由存储区   2. new和malloc的区别 3. 关键字static、const、volatile  3.1. static  3.1.1. 面向过程设计中的static   3.2. 面向对象设计中的static 3.3. const  3.3.1. const修饰成员变量 3.3.2. const修饰函数参">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cyriltaylor.github.io/posts/1473815809/%E8%BF%9B%E7%A8%8B%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8.png">
+<meta property="og:updated_time" content="2019-10-12T18:43:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++进阶">
+<meta name="twitter:description" content="1. 程序虚拟存储器  1.1. 只读存储区 1.2. 堆/栈对比 1.3. 自由存储区   2. new和malloc的区别 3. 关键字static、const、volatile  3.1. static  3.1.1. 面向过程设计中的static   3.2. 面向对象设计中的static 3.3. const  3.3.1. const修饰成员变量 3.3.2. const修饰函数参">
+<meta name="twitter:image" content="https://cyriltaylor.github.io/posts/1473815809/%E8%BF%9B%E7%A8%8B%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script src="../../js/pace.min.js"></script>
+  
+
+  
+  
+
+<link rel="stylesheet" href="/css/prism-xonokai.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="../../index.html" class="left">
+                    <span class="site-title">Cyril&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="../../index.html">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="../../archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="../../about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="../../index.html">
+                    <img src="../../images/logo.png" alt="logo" width="130px" height="130px">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Cyril&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一枚系统工程师自用的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Github" target="_blank" href="//github.com/CyrilTaylor">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//www.weibo.com/CyrilTaylor">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-blog/C++/C++进阶" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      <span class="article-type type-1">原</span>C++进阶
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/C/C++/">C/C++</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-10-10
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <!-- TOC -->
+<ul>
+<li><a href="#1-%E7%A8%8B%E5%BA%8F%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8">1. 程序虚拟存储器</a>
+<ul>
+<li><a href="#11-%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%8C%BA">1.1. 只读存储区</a></li>
+<li><a href="#12-%E5%A0%86%E6%A0%88%E5%AF%B9%E6%AF%94">1.2. 堆/栈对比</a></li>
+<li><a href="#13-%E8%87%AA%E7%94%B1%E5%AD%98%E5%82%A8%E5%8C%BA">1.3. 自由存储区</a></li>
+</ul>
+</li>
+<li><a href="#2-new%E5%92%8Cmalloc%E7%9A%84%E5%8C%BA%E5%88%AB">2. new和malloc的区别</a></li>
+<li><a href="#3-%E5%85%B3%E9%94%AE%E5%AD%97staticconstvolatile">3. 关键字static、const、volatile</a>
+<ul>
+<li><a href="#31-static">3.1. static</a>
+<ul>
+<li><a href="#311-%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84static">3.1.1. 面向过程设计中的static</a></li>
+</ul>
+</li>
+<li><a href="#32-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84static">3.2. 面向对象设计中的static</a></li>
+<li><a href="#33-const">3.3. const</a>
+<ul>
+<li><a href="#331-const%E4%BF%AE%E9%A5%B0%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F">3.3.1. const修饰成员变量</a></li>
+<li><a href="#332-const%E4%BF%AE%E9%A5%B0%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0">3.3.2. const修饰函数参数</a></li>
+<li><a href="#333-const%E4%BF%AE%E9%A5%B0%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0">3.3.3. const修饰成员函数</a></li>
+<li><a href="#334-const%E4%BF%AE%E9%A5%B0%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC">3.3.4. const修饰函数返回值</a></li>
+</ul>
+</li>
+<li><a href="#34-volatile">3.4. volatile</a>
+<ul>
+<li><a href="#341-volatile%E7%9A%84%E4%BD%9C%E7%94%A8">3.4.1. volatile的作用</a></li>
+<li><a href="#342-volatile%E6%8C%87%E9%92%88">3.4.2. volatile指针</a></li>
+</ul>
+</li>
+<li><a href="#35-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E7%9A%84volatile">3.5. 多线程下的volatile</a></li>
+</ul>
+</li>
+<li><a href="#4-c%E5%92%8Cc%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8">4. C和C++相互调用</a>
+<ul>
+<li><a href="#41-c%E4%B8%AD%E8%B0%83%E7%94%A8c">4.1. C++中调用C</a></li>
+<li><a href="#42-c%E4%B8%AD%E8%B0%83%E7%94%A8c">4.2. C中调用C++</a></li>
+</ul>
+</li>
+<li><a href="#5-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">5. 参考文献</a></li>
+</ul>
+<!-- /TOC -->
+<a id="more"></a>
+<h2 id="1-程序虚拟存储器"><a class="markdownIt-Anchor" href="#1-程序虚拟存储器"></a> 1. 程序虚拟存储器</h2>
+<p><img src="%E8%BF%9B%E7%A8%8B%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8.png" alt="进程虚拟存储器" /></p>
+<h3 id="11-只读存储区"><a class="markdownIt-Anchor" href="#11-只读存储区"></a> 1.1. 只读存储区</h3>
+<p>只读存储区是在编译阶段就由编译器分配好的空间，其空间大小也在编译的时候已经固定，主要包括如下分区：</p>
+<ul>
+<li>
+<p>程序文本(.text)</p>
+<p>该区域包含程序代码和文字常量。</p>
+<p>常量指值不可改变的量，在C/C++中常量分为两种，文字常量（Literal Constant）和常变量（Constant Variable）。文字常量编译之后存储在代码段，不可寻址，常变量存储在数据区（堆、栈、BSS段或数据段），可寻址。</p>
+<ol>
+<li>
+<p>文字常量</p>
+<p>文字常量又称为“字面常量”，包括数值常量、字符常量和符号常量。其特点是编译后写在代码区，不可寻址，不可更改，属于指令的一部分。</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>&amp; r=<span class="number">5</span>;       <span class="comment">// 编译错误，文字常量不可寻址，因而无法为文字常量建立引用</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>&amp; r=<span class="number">5</span>; <span class="comment">// 编译通过，在数据区开辟一个值为5的无名整型常变量，然后将引用r与这个整型常变量进行绑定。</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>数值常量</p>
+<p>包括整型常量和实型常量。整型常量指常整数，有十进制、八进制、十六进制三种表示形式。实型常量包括单精度浮点数（float）、双精度浮点数（double）和长双精度浮点数（long double），表示形式有科学计数法和非科学计数法。</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a=<span class="number">4</span>;            <span class="comment">// 4为数值常量中的整型常量</span></span><br><span class="line"><span class="keyword">float</span> b=<span class="number">4.4</span>;        <span class="comment">// 4.4为数值常量中单精度实型常量</span></span><br><span class="line"><span class="keyword">double</span> c=<span class="number">1.4e10</span>;    <span class="comment">// 1.4e5表示的值为1.4×10^5，是数值常量中双精度实型常量</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>字符常量</p>
+<p>指ASCII字符，有128个，分为普通字符和转义字符。普通字符指可直接书写的字符，如’a’和’b’。转义字符指不能直接书写的特殊字符，需要使用反斜杠进行表示，比如’\t’表示水平制表符，’\v’表示垂直制表符。</p>
+</li>
+<li>
+<p>符号常量</p>
+<p>用标识符代表一个常量，使用之前必须定义。例如宏定义和枚举元素。</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NUM 100                                   <span class="comment">// NUM为符号常量，100为整型常量</span></span></span><br><span class="line"><span class="keyword">enum</span> Weekday&#123;SUN, MON, TUES, WED, THU, FRI, SAT&#125;; <span class="comment">// SUN,MON等均为符号常量</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>常变量</p>
+<p>常变量指定义时必须显示初始化且值不可修改的变量。与其他变量一样被分配空间，是可以寻址的。注意，字符串常量是常变量的一种，名称为其本身，存储在代码段，可寻址，不可修改。</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span>&lt;&lt;&amp;”hello world”&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//打印输出字符串常量”hello world”存储地址</span></span><br></pre></td></tr></table></figure>
+<p>常变量在C/C++中由const关键字来定义，分为全局常变量和局部常变量。二者的区别在于：全局常变量存储在代码段的只读内存区域，不可修改有操作系统来保障，局部常变量存储在栈区，在编程语言语义层面上由编辑器做语法检查来保障其值不可修改，因不是放在只读内存中，可以获得局部常变量的地址，运行时间接进行修改。参考如下代码：</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> con1=<span class="number">3</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showValue</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> con2=<span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span>* ptr=<span class="literal">NULL</span>;</span><br><span class="line">    ptr=<span class="keyword">const_cast</span>&lt;<span class="keyword">int</span>*&gt;(&amp;con2);</span><br><span class="line">    *ptr=<span class="number">5</span>;</span><br><span class="line">    showValue(con2);                <span class="comment">//1，输出5</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"con2:"</span>&lt;&lt;con2&lt;&lt;<span class="built_in">endl</span>;      <span class="comment">//2，输出4</span></span><br><span class="line">    ptr= <span class="keyword">const_cast</span>&lt;<span class="keyword">int</span>*&gt;(&amp;con1);</span><br><span class="line">    *ptr=<span class="number">6</span>;                         <span class="comment">//3，运行时错误，写入冲突</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程序1处输出5，表明局部常量con2的值已经被修改，2处输出为结果仍然为4，并不是说明常变量con2的值没有被修改，而是因为编译器在代码优化的过程中已经将con2替换成了文字常量4。程序3处，运行时出错，表明全局常变量存储在只读内存，无法间接改写。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>已初始化数据(.data)</p>
+<p>包含已初始化的全局变量和静态变量，程序结束后由系统释放资源。</p>
+</li>
+<li>
+<p>未初始化数据(.bss)</p>
+<p>包含为初始化的全局变量和静态变量，并且以0填充变量数值，程序结束后由系统释放资源。</p>
+</li>
+</ul>
+<h3 id="12-堆栈对比"><a class="markdownIt-Anchor" href="#12-堆栈对比"></a> 1.2. 堆/栈对比</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">特性</th>
+<th style="text-align:left">堆</th>
+<th style="text-align:left">栈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">内存管理</td>
+<td style="text-align:left">通过函数malloc主动申请，需要程序主动释放，或者等待程序完全退出后由系统回收</td>
+<td style="text-align:left">用于存放函数的形参、局部变量等，生命周期结束后由操作系统自动分配释放</td>
+</tr>
+<tr>
+<td style="text-align:center">空间大小</td>
+<td style="text-align:left">可用空间即为虚拟内存的可用空间大小</td>
+<td style="text-align:left">可用空间远小于堆空间大小，如64位windows程序提供的是1MB，Linux是10MB</td>
+</tr>
+<tr>
+<td style="text-align:center">分配方式</td>
+<td style="text-align:left">均为通过malloc<strong>动态分配</strong></td>
+<td style="text-align:left">分为静态分配和动态分配。<br><strong>静态分配</strong>由操作系统完成，如局部变量；<br><strong>动态分配</strong>通过alloca进行动态申请，生命周期结束后由系统自动释放，无需程序主动释放。</td>
+</tr>
+<tr>
+<td style="text-align:center">分配效率</td>
+<td style="text-align:left">堆则是由C/C++提供的库函数或运算符来完成申请与管理，实现机制较为复杂，频繁的内存申请容易产生内存碎片。因而分配效率比较<strong>低</strong></td>
+<td style="text-align:left">栈由操作系统自动分配，会在硬件层级对栈提供支持：分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令执行，这就决定了栈的效率比较<strong>高</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">增长方向</td>
+<td style="text-align:left">向上增长，内存地址由低到高</td>
+<td style="text-align:left">向下增长，内存地址由高到低</td>
+</tr>
+<tr>
+<td style="text-align:center">存放内容</td>
+<td style="text-align:left">一般堆顶使用一个字节的空间来存放堆的大小，而堆中具体存放内容是由程序员来填充的。</td>
+<td style="text-align:left">栈存放的内容，函数返回地址、相关参数、局部变量和寄存器内容等。当主函数调用另外一个函数的时候，要对当前函数执行断点进行保存，需要使用栈来实现，首先入栈的是主函数下一条语句的地址，即扩展指针寄存器的内容（EIP），然后是当前栈帧的底部地址，即扩展基址指针寄存器内容（EBP），再然后是被调函数的实参等，一般情况下是按照从右向左的顺序入栈，之后是被调函数的局部变量，注意静态变量是存放在数据段或者BSS段，是不入栈的。出栈的顺序正好相反，最终栈顶指向主函数下一条语句的地址，主程序又从该地址开始执行。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-自由存储区"><a class="markdownIt-Anchor" href="#13-自由存储区"></a> 1.3. 自由存储区</h3>
+<p>自由存储区是C++上为new方法提供的一个抽象概念，具体对应的存储区域取决于编译器对于new方法的实现，自由存储区可能是映射到堆，也可能是映射到静态存储区，甚至可能不会重新分配内存，而仅仅只是将<code>定位new</code>所指定的地址返回，对于绝大部分的编译器来说，都是借助malloc来实现new操作符的功能，此时，自由存储区就是堆，而开发者可以通过重载操作符的方式重载new，此时就要依据开发者的实现来决定自由存储所对应的存储区域，例如如下的<a href="https://blog.csdn.net/zhangxiangDavaid/article/details/43899351"><code>定位new表达式</code></a>就是仅仅返回已定义的空间地址，而没有重新分配地址，具体可参考<a href="#2-new%E5%92%8Cmalloc%E7%9A%84%E5%8C%BA%E5%88%AB">new和malloc的区别</a>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">char</span> addr1[<span class="number">100</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> addr2[<span class="number">100</span>];</span><br><span class="line">	<span class="keyword">char</span> *addr3 = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">100</span>];</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"addr1 = "</span> &lt;&lt; (<span class="keyword">void</span>*)addr1 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"addr2 = "</span> &lt;&lt; (<span class="keyword">void</span>*)addr2 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"addr3 = "</span> &lt;&lt; (<span class="keyword">void</span>*)addr3 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">int</span> *p = <span class="literal">nullptr</span>;</span><br><span class="line">	<span class="comment">// 返回静态区地址，并按地址右侧数据类型初始化该区域</span></span><br><span class="line">	p = <span class="keyword">new</span>(addr1)<span class="keyword">int</span>;</span><br><span class="line">	*p = <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; (<span class="keyword">void</span>*)p &lt;&lt; <span class="string">"  "</span> &lt;&lt; *p &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="comment">// 返回栈区地址，并按地址右侧数据类型初始化该区域</span></span><br><span class="line">	p = <span class="keyword">new</span>(addr2)<span class="keyword">int</span>;</span><br><span class="line">	*p = <span class="number">2</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; (<span class="keyword">void</span>*)p &lt;&lt; <span class="string">"  "</span> &lt;&lt; *p &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="comment">//返回堆区地址，并按地址右侧数据类型初始化该区域</span></span><br><span class="line">	p = <span class="keyword">new</span>(addr3)<span class="keyword">int</span>;</span><br><span class="line">	*p = <span class="number">3</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; (<span class="keyword">void</span>*)p &lt;&lt; <span class="string">"  "</span> &lt;&lt; *p &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cin</span>.get();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-new和malloc的区别"><a class="markdownIt-Anchor" href="#2-new和malloc的区别"></a> 2. new和malloc的区别</h2>
+<p><a href="https://www.cnblogs.com/qg-whz/p/5140930.html">细说new与malloc的10点区别</a></p>
+<h2 id="3-关键字static-const-volatile"><a class="markdownIt-Anchor" href="#3-关键字static-const-volatile"></a> 3. 关键字static、const、volatile</h2>
+<h3 id="31-static"><a class="markdownIt-Anchor" href="#31-static"></a> 3.1. static</h3>
+<h4 id="311-面向过程设计中的static"><a class="markdownIt-Anchor" href="#311-面向过程设计中的static"></a> 3.1.1. 面向过程设计中的static</h4>
+<ol>
+<li>
+<p>静态全局变量</p>
+<p>静态全局变量如下特点：</p>
+<ul>
+<li>静态全局变量数据存储在静态存储区，所以在编译时编译器将对其进行初始化，默认初始化为0，自动变量初始化为随机值</li>
+<li>静态全局变量、<strong>静态局部变量</strong>与全局变量一样，在编译时编译器将对其进行唯一的一次初始化，程序开始运行时，静态存储区会拷贝到内存中</li>
+<li>作用域为定义的位置到文件末尾，其他文件不可访问，用extern在其他文件引用时会运行时失败，全局变量可以在多个文件中引用</li>
+<li>与全局变量一样，生命周期为进程的整个运行时，进程不退出，其占用的内存地址不会销毁，记录的值依旧有效</li>
+</ul>
+</li>
+<li>
+<p>静态局部变量</p>
+<ul>
+<li>静态全局变量数据存储在静态存储区，所以在编译时编译器将对其进行初始化，默认初始化为0，自动变量初始化为随机值</li>
+<li>在编译时编译器将对其进行唯一的一次初始化，程序开始运行时，静态存储区会拷贝到内存中</li>
+<li>只能被其同一作用域内的函数或者变量引用，作用域范围与局部变量相同</li>
+<li>与全局变量一样，生命周期为进程的整个运行时，进程不退出，即使其作用域已执行完，其占用的内存地址不会销毁，记录的值依旧有效，下次读取到的依旧是上次修改后的值</li>
+</ul>
+</li>
+<li>
+<p>静态函数</p>
+<ul>
+<li>作用域为定义的位置到文件末尾，其他文件不可访问，而普通函数则可以被其他源文件引用</li>
+<li>静态函数在内存中只拷贝一份，而普通函数在每次调用是都会拷贝一次</li>
+</ul>
+</li>
+</ol>
+<p>总结：</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>存储区</th>
+<th>作用域</th>
+<th>生命周期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全局变量</td>
+<td>.data字段(未初始化时编译器自动赋值)</td>
+<td>全部源文件均可访问，其他源文件访问需要加extern关键字</td>
+<td>进程运行开始到进程完全退出</td>
+</tr>
+<tr>
+<td>静态全局变量</td>
+<td>.data字段(未初始化时编译器自动赋值)</td>
+<td>当前源文件定义处至文件末尾，其他源文件不可访问</td>
+<td>进程运行开始到进程完全退出</td>
+</tr>
+<tr>
+<td>静态局部变量</td>
+<td>.data字段(未初始化时编译器自动赋值)</td>
+<td>当前源文件定义处的作用域内</td>
+<td>进程运行开始到进程完全退出</td>
+</tr>
+<tr>
+<td>局部变量</td>
+<td>栈内存/堆内存</td>
+<td>当前源文件定义处的作用域内</td>
+<td>当前源文件定义处的作用域内，作用域执行完则销毁</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-面向对象设计中的static"><a class="markdownIt-Anchor" href="#32-面向对象设计中的static"></a> 3.2. 面向对象设计中的static</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Myclass</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> 　　Myclass(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c);</span><br><span class="line"> 　　<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetSum</span><span class="params">()</span></span>; <span class="comment">// 声明静态成员函数</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line"> 　　<span class="keyword">int</span> a,b,c;</span><br><span class="line"> 　　<span class="keyword">static</span> <span class="keyword">int</span> Sum; <span class="comment">// 声明静态数据成员</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">int</span> Myclass::Sum=<span class="number">0</span>; <span class="comment">// 定义并初始化静态数据成员</span></span><br><span class="line"></span><br><span class="line">Myclass::Myclass(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c)</span><br><span class="line">&#123;</span><br><span class="line"> 　　<span class="keyword">this</span>-&gt;a=a;</span><br><span class="line"> 　　<span class="keyword">this</span>-&gt;b=b;</span><br><span class="line"> 　　<span class="keyword">this</span>-&gt;c=c;</span><br><span class="line"> 　　Sum+=a+b+c; <span class="comment">// 非静态成员函数可以访问静态数据成员</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Myclass::GetSum() <span class="comment">// 静态成员函数的实现</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// cout&lt;&lt;a&lt;&lt;endl; // 错误代码，a是非静态数据成员</span></span><br><span class="line"> 　　<span class="built_in">cout</span>&lt;&lt;<span class="string">"Sum="</span>&lt;&lt;Sum&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> 　　<span class="function">Myclass <span class="title">M</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span></span>;</span><br><span class="line"> 　　M.GetSum();</span><br><span class="line">　　 <span class="function">Myclass <span class="title">N</span><span class="params">(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span></span>;</span><br><span class="line"> 　　N.GetSum();</span><br><span class="line"> 　　M.GetSum();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>
+<p>静态数据成员</p>
+<ul>
+<li><strong>静态数据成员数据存储在静态存储区，静态数据成员定义时要分配空间，所以类的声明中只能进行静态数据成员的声明，其定义和初始化必须在类声明外执行</strong></li>
+<li><strong>静态数据成员只分配一次内存空间，因此该类的所以实例或子类实例，对该静态数据成员的引用均指向同一地址，一处修改，对于全部引用生效</strong></li>
+<li>静态数据成员不用对类进行实例化也可访问,但是跟普通数据成员一样，遵从public,protected,private访问规则</li>
+<li>静态数据成员初始化与一般数据成员初始化不同。静态数据成员初始化的格式为： <strong>＜数据类型＞ ＜类名＞::＜静态数据成员名＞ = ＜值＞</strong></li>
+<li>类的静态数据成员有两种访问形式：普通数据成员访问方式(<strong>＜类实例名＞.＜静态数据成员名＞</strong>)或静态数据成员特有访问方式(<strong>＜类类型名＞::＜静态数据成员名＞</strong>)</li>
+</ul>
+</li>
+<li>
+<p>静态成员函数</p>
+<ul>
+<li><strong>类声明外的函数不能指定关键字static</strong></li>
+<li>类的静态成员函数有两种访问形式：普通成员函数访问方式(<strong>＜类实例名＞.＜静态成员函数名＞(＜参数表＞)</strong>)或静态成员函数特有访问方式(<strong>＜类类型名＞::＜静态成员函数名＞(＜参数表＞)</strong>)</li>
+<li>静态成员之间可以相互访问，包括静态成员函数访问静态数据成员和访问静态成员函数，非静态成员函数可以任意地访问静态成员函数和静态数据成员，但静态成员函数不能访问非静态成员函数和非静态数据成员</li>
+<li>静态成员函数在内存中只拷贝一份，而普通函数在每次调用是都会拷贝一次</li>
+</ul>
+</li>
+</ol>
+<h3 id="33-const"><a class="markdownIt-Anchor" href="#33-const"></a> 3.3. const</h3>
+<p>const 允许指定一个语义约束，编译器会强制实施这个约束，允许程序员告诉编译器某值是保持不变的。如果在编程中确实有某个值保持不变，就应该明确使用const，这样可以获得编译器的帮助。</p>
+<h4 id="331-const修饰成员变量"><a class="markdownIt-Anchor" href="#331-const修饰成员变量"></a> 3.3.1. const修饰成员变量</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a1=<span class="number">3</span>;                   <span class="comment">//non-const data</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> a2=a1;            <span class="comment">//const data</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> * a3 = &amp;a1;             <span class="comment">//non-const data,non-const pointer</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> * a4 = &amp;a1;       <span class="comment">//const data,non-const pointer</span></span><br><span class="line">    <span class="keyword">int</span> * <span class="keyword">const</span> a5 = &amp;a1;       <span class="comment">//non-const data,const pointer</span></span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">const</span> * <span class="keyword">const</span> a6 = &amp;a1; <span class="comment">//const data,const pointer</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> * <span class="keyword">const</span> a7 = &amp;a1; <span class="comment">//const data,const pointer</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>const修饰指针变量时：</p>
+<ol>
+<li>只有一个const，如果const位于*左侧，表示指针所指数据是常量，不能通过解引用修改该数据；指针本身是变量，可以指向其他的内存单元。</li>
+<li>只有一个const，如果const位于*右侧，表示指针本身是常量，不能指向其他内存地址；指针所指的数据可以通过解引用修改。</li>
+<li>两个const，*左右各一个，表示指针和指针所指数据都不能修改。</li>
+</ol>
+<h4 id="332-const修饰函数参数"><a class="markdownIt-Anchor" href="#332-const修饰函数参数"></a> 3.3.2. const修饰函数参数</h4>
+<p>传递过来的参数在函数内不可以改变，与上面修饰变量时的性质一样。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testModifyConst</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> _x)</span> </span>&#123;</span><br><span class="line">     _x=<span class="number">5</span>;　　　<span class="comment">//编译出错</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="333-const修饰成员函数"><a class="markdownIt-Anchor" href="#333-const修饰成员函数"></a> 3.3.3. const修饰成员函数</h4>
+<ol>
+<li>const修饰的成员函数不能修改任何的成员变量(mutable修饰的变量除外)</li>
+<li>const成员函数不能调用非onst成员函数，因为非const成员函数可以会修改成员变量</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span> :</span><br><span class="line">    Point(<span class="keyword">int</span> _x):x(_x)&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testConstFunction</span><span class="params">(<span class="keyword">int</span> _x)</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//错误，在const成员函数中，不能修改任何类成员变量</span></span><br><span class="line">        x=_x;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//错误，const成员函数不能调用非onst成员函数，因为非const成员函数可以会修改成员变量</span></span><br><span class="line">        modify_x(_x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">modify_x</span><span class="params">(<span class="keyword">int</span> _x)</span></span>&#123;</span><br><span class="line">        x=_x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="334-const修饰函数返回值"><a class="markdownIt-Anchor" href="#334-const修饰函数返回值"></a> 3.3.4. const修饰函数返回值</h4>
+<ol>
+<li>
+<p>指针传递</p>
+<p>如果返回const data,non-const pointer，返回值也必须赋给const data,non-const pointer。因为指针指向的数据是常量不能修改。</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">int</span> * <span class="title">mallocA</span><span class="params">()</span></span>&#123;  <span class="comment">//const data,non-const pointer</span></span><br><span class="line">    <span class="keyword">int</span> *a=<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> *a = mallocA();</span><br><span class="line">    <span class="comment">//int *b = mallocA();  ///编译错误</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>值传递</p>
+<p>如果函数返回值采用“值传递方式”，由于函数会把返回值复制到外部临时的存储单元中，加const 修饰没有任何价值。所以，<strong>对于值传递来说，加const没有太多意义</strong>。</p>
+<p>所以：</p>
+<ul>
+<li><strong>不要把函数int GetInt(void) 写成const int GetInt(void)</strong></li>
+<li><strong>不要把函数A GetA(void) 写成const A GetA(void)，其中A 为用户自定义的数据类型</strong></li>
+</ul>
+<p>在编程中要尽可能多的使用const，这样可以获得编译器的帮助，以便写出健壮性的代码。</p>
+</li>
+</ol>
+<h3 id="34-volatile"><a class="markdownIt-Anchor" href="#34-volatile"></a> 3.4. volatile</h3>
+<h4 id="341-volatile的作用"><a class="markdownIt-Anchor" href="#341-volatile的作用"></a> 3.4.1. volatile的作用</h4>
+<p>volatile关键字是一种类型修饰符，用它声明的类型变量表示可以被某些编译器未知的因素更改，比如：操作系统、硬件或者其它线程等。由于访问寄存器的速度要快过RAM，所以编译器一般都会作减少存取外部RAM的优化。遇到这个关键字声明的变量，编译器对访问该变量的代码就不再进行优化，从而可以提供对特殊地址的稳定访问。<strong>当要求使用 volatile 声明的变量的值的时候，系统总是重新从它所在的内存读取数据，即使它前面的指令刚刚从该处读取过数据。而且读取的数据立刻被保存</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> a = i;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"i = %d"</span>, a);</span><br><span class="line">    <span class="comment">// 下面汇编语句的作用就是改变内存中 i 的值</span></span><br><span class="line">    <span class="comment">// 但是又不让编译器知道</span></span><br><span class="line">    __asm &#123;</span><br><span class="line">        mov dword ptr [ebp<span class="number">-4</span>], <span class="number">20</span>h</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> b = i;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"i = %d"</span>, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，在 Debug 版本模式运行程序，输出结果如下：</p>
+<pre><code>i = 10
+i = 32
+</code></pre>
+<p>在 Release 版本模式运行程序，输出结果如下：</p>
+<pre><code>i = 10
+i = 10
+</code></pre>
+<p>输出的结果明显表明，Release 模式下，编译器对代码进行了优化，第二次没有输出正确的 i 值。把 i 的声明加上 volatile 关键字，在 Debug 和 Release 版本运行程序，输出为：</p>
+<pre><code>i = 10
+i = 10
+</code></pre>
+<p>其实不只是“内嵌汇编操纵栈”这种方式属于编译无法识别的变量改变，另外更多的可能是多线程并发访问共享变量时，一个线程改变了变量的值，怎样让改变后的值对其它线程 visible。一般说来，volatile用在如下的几个地方：</p>
+<ol>
+<li><strong>中断服务程序中修改的供其它程序检测的变量需要加volatile</strong></li>
+<li><strong>多任务环境下各任务间共享的标志应该加volatile</strong></li>
+<li><strong>存储器映射的硬件寄存器通常也要加volatile说明，因为每次对它的读写都可能由不同意义</strong></li>
+</ol>
+<h4 id="342-volatile指针"><a class="markdownIt-Anchor" href="#342-volatile指针"></a> 3.4.2. volatile指针</h4>
+<p>和 const 修饰词类似，const 有常量指针和指针常量的说法，volatile 也有相应的概念：</p>
+<ul>
+<li>修饰由指针指向的对象、数据是 const 或 volatile 的：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* cpch;</span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">char</span>* vpch;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>指针自身的值——一个代表地址的整数变量，是 const 或 volatile 的：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>* <span class="keyword">const</span> pchc;</span><br><span class="line"><span class="keyword">char</span>* <span class="keyword">volatile</span> pchv;</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ol>
+<li><strong>可以把一个非volatile int赋给volatile int，但是不能把非volatile对象赋给一个volatile对象</strong></li>
+<li><strong>除了基本类型外，对用户定义类型也可以用volatile类型进行修饰</strong></li>
+<li><strong>C++中一个有volatile标识符的类只能访问它接口的子集，一个由类的实现者控制的子集。用户只能用const_cast来获得对类型接口的完全访问。此外，volatile向const一样会从类传递到它的成员</strong></li>
+</ol>
+<h3 id="35-多线程下的volatile"><a class="markdownIt-Anchor" href="#35-多线程下的volatile"></a> 3.5. 多线程下的volatile</h3>
+<p>有些变量是用volatile关键字声明的。当两个线程都要用到某一个变量且该变量的值会被改变时，应该用volatile声明，该关键字的作用是防止优化编译器把变量从内存装入CPU寄存器中。如果变量被装入寄存器，那么两个线程有可能一个使用内存中的变量，一个使用寄存器中的变量，这会造成程序的错误执行。volatile的意思是让编译器每次操作该变量时一定要从内存中真正取出，而不是使用已经存在寄存器中的值，如下：</p>
+<blockquote>
+<p>volatile  BOOL  bStop  =  FALSE;</p>
+</blockquote>
+<p>(1) 在一个线程中：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(  !bStop  )  &#123;  ...  &#125;</span><br><span class="line">bStop  =  FALSE;</span><br><span class="line"><span class="keyword">return</span>;</span><br></pre></td></tr></table></figure>
+<p>(2) 在另外一个线程中，要终止上面的线程循环：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bStop  =  TRUE;</span><br><span class="line"><span class="keyword">while</span>(  bStop  );  <span class="comment">//等待上面的线程终止，如果bStop不使用volatile申明，那么这个循环将是一个死循环，因为bStop已经读取到了寄存器中，寄存器中bStop的值永远不会变成FALSE，加上volatile，程序在执行时，每次均从内存中读出bStop的值，就不会死循环了。</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-c和c相互调用"><a class="markdownIt-Anchor" href="#4-c和c相互调用"></a> 4. C和C++相互调用</h2>
+<h3 id="41-c中调用c"><a class="markdownIt-Anchor" href="#41-c中调用c"></a> 4.1. C++中调用C</h3>
+<h3 id="42-c中调用c"><a class="markdownIt-Anchor" href="#42-c中调用c"></a> 4.2. C中调用C++</h3>
+<h2 id="5-参考文献"><a class="markdownIt-Anchor" href="#5-参考文献"></a> 5. 参考文献</h2>
+<p>[1] <a href="https://blog.csdn.net/K346K346/article/details/46448255">C/C++文字常量与常变量</a></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年10月13日 02:43</p>
+
+            <p>版权声明：本文为<a href="https://cyriltaylor.github.io">Cyril Taylor</a>原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。</p>
+
+        <p>本文链接： <a class="post-url" href="" title="C++进阶">https://cyriltaylor.github.io/posts/1473815809/</a></p>
+        <footer>
+
+
+
+
+
+            <a href="https://cyriltaylor.github.io">
+                <img src="../../images/logo.png" alt="Cyril Taylor">
+                Cyril Taylor
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="../../images/wechat_code.png" alt="打赏二维码" width="300" height="300">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="../../images/wechat_code.png">
+                <img class="reward-select-item-wechat" src="../../images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="../../images/alipay_code.png">
+                <img class="reward-select-item-alipay" src="../../images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://cyriltaylor.github.io/posts/1473815809/&title=《C++进阶》 — 岁月静好&pic=C++.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://cyriltaylor.github.io/posts/1473815809/&title=《C++进阶》 — 岁月静好&source=
+
+1. 程序虚拟存储器
+
+1.1. 只读存储区
+1.2. 堆/栈对比
+1.3. 自由存储区
+
+
+2. new和malloc的区别
+3. 关键字stati..." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://cyriltaylor.github.io/posts/1473815809/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C++进阶》 — 岁月静好&url=https://cyriltaylor.github.io/posts/1473815809/&via=https://cyriltaylor.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://cyriltaylor.github.io/posts/1473815809/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://cyriltaylor.github.io/posts/1473815809/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/C/C++/" class="color1">C/C++</a>
+      
+    <a href="/tags/高级特性/" class="color5">高级特性</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-程序虚拟存储器"><span class="post-toc-text"> 1. 程序虚拟存储器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#11-只读存储区"><span class="post-toc-text"> 1.1. 只读存储区</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#12-堆栈对比"><span class="post-toc-text"> 1.2. 堆/栈对比</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#13-自由存储区"><span class="post-toc-text"> 1.3. 自由存储区</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-new和malloc的区别"><span class="post-toc-text"> 2. new和malloc的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-关键字static-const-volatile"><span class="post-toc-text"> 3. 关键字static、const、volatile</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#31-static"><span class="post-toc-text"> 3.1. static</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#311-面向过程设计中的static"><span class="post-toc-text"> 3.1.1. 面向过程设计中的static</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#32-面向对象设计中的static"><span class="post-toc-text"> 3.2. 面向对象设计中的static</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#33-const"><span class="post-toc-text"> 3.3. const</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#331-const修饰成员变量"><span class="post-toc-text"> 3.3.1. const修饰成员变量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#332-const修饰函数参数"><span class="post-toc-text"> 3.3.2. const修饰函数参数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#333-const修饰成员函数"><span class="post-toc-text"> 3.3.3. const修饰成员函数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#334-const修饰函数返回值"><span class="post-toc-text"> 3.3.4. const修饰函数返回值</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#34-volatile"><span class="post-toc-text"> 3.4. volatile</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#341-volatile的作用"><span class="post-toc-text"> 3.4.1. volatile的作用</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#342-volatile指针"><span class="post-toc-text"> 3.4.2. volatile指针</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#35-多线程下的volatile"><span class="post-toc-text"> 3.5. 多线程下的volatile</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-c和c相互调用"><span class="post-toc-text"> 4. C和C++相互调用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#41-c中调用c"><span class="post-toc-text"> 4.1. C++中调用C</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#42-c中调用c"><span class="post-toc-text"> 4.2. C中调用C++</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-参考文献"><span class="post-toc-text"> 5. 参考文献</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="../1503406261/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Java进阶
+        
+      </span>
+    </a>
+  
+  
+    <a href="../3787073306/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Linux设备树</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 Cyril Taylor<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://cyriltaylor.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="../../categories/C-C/">C/C++</a><a class="category-link" href="../../categories/Kotlin/">Kotlin</a><a class="category-link" href="../../categories/Linux/">Linux</a><a class="category-link" href="../../categories/shell/">shell</a><a class="category-link" href="../../categories/机器学习/">机器学习</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="../../tags/C-C/" style="font-size: 20px;">C/C++</a> <a href="../../tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="../../tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="../../tags/Linux/" style="font-size: 20px;">Linux</a> <a href="../../tags/Python/" style="font-size: 10px;">Python</a> <a href="../../tags/kernel-API/" style="font-size: 10px;">kernel API</a> <a href="../../tags/shell/" style="font-size: 10px;">shell</a> <a href="../../tags/zsh/" style="font-size: 10px;">zsh</a> <a href="../../tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="../../tags/编程/" style="font-size: 10px;">编程</a> <a href="../../tags/编程技巧/" style="font-size: 10px;">编程技巧</a> <a href="../../tags/编程规范/" style="font-size: 10px;">编程规范</a> <a href="../../tags/设备树/" style="font-size: 10px;">设备树</a> <a href="../../tags/高级特性/" style="font-size: 10px;">高级特性</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="../../index.html">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="../../archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="../../about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="../../tags/C-C/" style="font-size: 20px;">C/C++</a> <a href="../../tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="../../tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="../../tags/Linux/" style="font-size: 20px;">Linux</a> <a href="../../tags/Python/" style="font-size: 10px;">Python</a> <a href="../../tags/kernel-API/" style="font-size: 10px;">kernel API</a> <a href="../../tags/shell/" style="font-size: 10px;">shell</a> <a href="../../tags/zsh/" style="font-size: 10px;">zsh</a> <a href="../../tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="../../tags/编程/" style="font-size: 10px;">编程</a> <a href="../../tags/编程技巧/" style="font-size: 10px;">编程技巧</a> <a href="../../tags/编程规范/" style="font-size: 10px;">编程规范</a> <a href="../../tags/设备树/" style="font-size: 10px;">设备树</a> <a href="../../tags/高级特性/" style="font-size: 10px;">高级特性</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="../../js/search.js"></script>
+<script src="../../js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="../../js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="../../js/animate.js"></script>
+
+
+  <script src="../../js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

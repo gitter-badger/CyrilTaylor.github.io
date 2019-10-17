@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- 由 Microsoft Visio, SVG Export 生成 设备树语法.svg Page-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="8.26772in" height="11.6929in"
+		viewBox="0 0 595.276 841.89" xml:space="preserve" color-interpolation-filters="sRGB" class="st15">
+	<v:documentProperties v:langID="1033" v:metric="true" v:viewMarkup="false">
+		<v:userDefs>
+			<v:ud v:nameU="msvNoAutoConnect" v:val="VT0(1):26"/>
+		</v:userDefs>
+	</v:documentProperties>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#ffffff;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st2 {fill:#000000;font-family:SauceCodePro NF;font-size:0.874992em}
+		.st3 {fill:#0000ff;font-size:1em}
+		.st4 {fill:#a31515;font-size:1em}
+		.st5 {font-size:1em}
+		.st6 {fill:#09885a;font-size:1em}
+		.st7 {fill:#008000;font-size:1em}
+		.st8 {marker-start:url(#mrkr5-116);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st9 {fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1;stroke-width:0.22935779816514}
+		.st10 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:7.2}
+		.st11 {fill:#000000;font-family:Calibri;font-size:0.666664em}
+		.st12 {font-family:MS Gothic;font-size:1em}
+		.st13 {fill:#000000;font-family:MS Gothic;font-size:0.666664em}
+		.st14 {font-family:Calibri;font-size:1em}
+		.st15 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Markers">
+		<g id="lend5">
+			<path d="M 2 1 L 0 0 L 1.98117 -0.993387 C 1.67173 -0.364515 1.67301 0.372641 1.98465 1.00043 " style="stroke:none"/>
+		</g>
+		<marker id="mrkr5-116" class="st9" v:arrowType="5" v:arrowSize="2" v:setback="7.15" refX="7.15" orient="auto"
+				markerUnits="strokeWidth" overflow="visible">
+			<use xlink:href="#lend5" transform="scale(4.36) "/>
+		</marker>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>页-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<v:layer v:name="连接线" v:index="0"/>
+		<g id="shape1001-1" v:mID="1001" v:groupContext="shape" transform="translate(18,-340.157)">
+			<title>工作表.1001</title>
+			<desc>/dts-v1/; #include &#34;armv7-m.dtsi&#34; #include &#60;dt-bindings/gpio/...</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)"/>
+			<v:textRect cx="279.638" cy="679.912" width="559.28" height="323.956"/>
+			<rect x="0" y="517.934" width="559.276" height="323.956" class="st1"/>
+			<text x="4" y="525.56" class="st2" v:langID="1033"><v:paragraph v:bulletSize="0.166667"/><v:tabList/>/dts-v1/;<v:newlineChar/><v:newlineChar/><tspan
+						x="4" dy="2.4em" class="st3">#</tspan><tspan class="st3">include</tspan><tspan class="st4"> </tspan><tspan
+						class="st4">&#34;</tspan><tspan class="st4">armv</tspan><tspan class="st4">7</tspan><tspan class="st4">-</tspan><tspan
+						class="st4">m</tspan><tspan class="st4">.</tspan><tspan class="st4">dtsi</tspan><tspan class="st4">&#34;<v:newlineChar/></tspan><tspan
+						x="4" dy="1.2em" class="st3">#</tspan><tspan class="st3">include</tspan><tspan class="st4"> </tspan><tspan
+						class="st4">&#60;</tspan><tspan class="st4">dt</tspan><tspan class="st4">-</tspan><tspan class="st4">bindings</tspan><tspan
+						class="st4">/</tspan><tspan class="st4">gpio</tspan><tspan class="st4">/</tspan><tspan class="st4">gpio</tspan><tspan
+						class="st4">.</tspan><tspan class="st4">h</tspan><tspan class="st4">&#62;<v:newlineChar/><v:newlineChar/></tspan><tspan
+						x="4" dy="2.4em" class="st5">/</tspan> {<v:newlineChar/> <v:newlineChar/><tspan x="4" dy="1.2em"
+						class="st5">    </tspan>node@0 { <v:newlineChar/><tspan x="4" dy="1.2em" class="st5">        </tspan>an-empty-property;<v:newlineChar/><tspan
+						x="4" dy="1.2em" class="st5">        </tspan>a-string-property = <tspan class="st4">&#34;</tspan><tspan
+						class="st4">A</tspan><tspan class="st4"> </tspan><tspan class="st4">string</tspan><tspan class="st4">&#34;</tspan>;<v:newlineChar/><tspan
+						x="4" dy="1.2em" class="st5">        </tspan>a-string-list-property = <tspan class="st4">&#34;</tspan><tspan
+						class="st4">first</tspan><tspan class="st4"> </tspan><tspan class="st4">string</tspan><tspan class="st4">&#34;</tspan>, <tspan
+						class="st4">&#34;</tspan><tspan class="st4">second</tspan><tspan class="st4"> </tspan><tspan class="st4">string</tspan><tspan
+						class="st4">&#34;</tspan>;<v:newlineChar/><tspan x="4" dy="1.2em" class="st5">        </tspan>a-byte-data-property = <tspan
+						class="st6">[</tspan><tspan class="st6">0</tspan><tspan class="st6">x</tspan><tspan class="st6">01</tspan><tspan
+						class="st6"> </tspan><tspan class="st6">0</tspan><tspan class="st6">x</tspan><tspan class="st6">23</tspan><tspan
+						class="st6"> </tspan><tspan class="st6">0</tspan><tspan class="st6">x</tspan><tspan class="st6">34</tspan><tspan
+						class="st6"> </tspan><tspan class="st6">0</tspan><tspan class="st6">x</tspan><tspan class="st6">56</tspan><tspan
+						class="st6">]</tspan>; <v:newlineChar/><tspan x="4" dy="1.2em" class="st5">        </tspan>child-node@0 { <v:newlineChar/><tspan
+						x="4" dy="1.2em" class="st5">            </tspan>first-child-property;<v:newlineChar/><tspan x="4"
+						dy="1.2em" class="st5">            </tspan>second-child-property = &#60;<tspan class="st6">1</tspan>&#62;;  <v:newlineChar/><tspan
+						x="4" dy="1.2em" class="st5">            </tspan>a-string-property = <tspan class="st4">&#34;</tspan><tspan
+						class="st4">Hello</tspan><tspan class="st4">,</tspan><tspan class="st4"> </tspan><tspan class="st4">world</tspan><tspan
+						class="st4">&#34;</tspan>; <v:newlineChar/><tspan x="4" dy="1.2em" class="st5">        </tspan>};      <v:newlineChar/><tspan
+						x="4" dy="1.2em" class="st5">        </tspan>child-node@1 { <v:newlineChar/><tspan x="4" dy="1.2em"
+						class="st5">        </tspan>};  <v:newlineChar/><tspan x="4" dy="1.2em" class="st5">    </tspan>};  <v:newlineChar/><tspan
+						x="4" dy="1.2em" class="st5">    </tspan>node1: node@1 { <v:newlineChar/><tspan x="4" dy="1.2em"
+						class="st5">        </tspan>an-empty-property;<v:newlineChar/><tspan x="4" dy="1.2em" class="st5">        </tspan>a-cell-property = &#60;<tspan
+						class="st6">1</tspan> <tspan class="st6">2</tspan> <tspan class="st6">3</tspan> <tspan class="st6">4</tspan>&#62;; <tspan
+						class="st7">/*</tspan><tspan class="st7"> </tspan><tspan class="st7">each</tspan><tspan class="st7"> </tspan><tspan
+						class="st7">number</tspan><tspan class="st7"> </tspan><tspan class="st7">(</tspan><tspan class="st7">cell</tspan><tspan
+						class="st7">)</tspan><tspan class="st7"> </tspan><tspan class="st7">is</tspan><tspan class="st7">  </tspan><tspan
+						class="st7">a</tspan><tspan class="st7"> </tspan><tspan class="st7">uint</tspan><tspan class="st7">32</tspan><tspan
+						class="st7"> </tspan><tspan class="st7">*/ <v:newlineChar/></tspan><tspan x="4" dy="1.2em" class="st5">        </tspan>child-node@0 { <v:newlineChar/><tspan
+						x="4" dy="1.2em" class="st5">        </tspan>};  <v:newlineChar/><tspan x="4" dy="1.2em" class="st5">    </tspan>};<v:newlineChar/><tspan
+						x="4" dy="1.2em" class="st5">};</tspan></text>		</g>
+		<g id="shape1002-111" v:mID="1002" v:groupContext="shape" v:layerMember="0" transform="translate(37.7008,-668.976)">
+			<title>动态连接线.1002</title>
+			<desc>dts格式版本号</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="40.5354" cy="807.874" width="59.83" height="18.6536"/>
+			<path d="M1.98 836.53 L1.98 836.17 L1.98 807.87 L12.19 807.87" class="st8"/>
+			<rect v:rectContext="textBkgnd" x="15.5298" y="802.549" width="50.0114" height="10.6501" class="st10"/>
+			<text x="15.53" y="810.54" class="st11" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>dts<tspan
+						class="st12">格式版本号</tspan></text>		</g>
+		<g id="shape1003-120" v:mID="1003" v:groupContext="shape" v:layerMember="0" transform="translate(107.717,-643.72)">
+			<title>动态连接线.1003</title>
+			<desc>可以引用dtsi或.h文件</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="54.9921" cy="808.129" width="83.89" height="18.6536"/>
+			<path d="M0 836.53 L0 836.17 L0 808.13 L14.17 808.13" class="st8"/>
+			<rect v:rectContext="textBkgnd" x="17.9573" y="802.804" width="74.0698" height="10.6501" class="st10"/>
+			<text x="17.96" y="810.79" class="st13" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>可以引用<tspan
+						class="st14">dtsi</tspan>或<tspan class="st14">.</tspan><tspan class="st14">h</tspan>文件</text>		</g>
+	</g>
+</svg>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>zsh详解 | 岁月静好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Cyril Taylor,Cyril's Blog">
+  
+  <meta name="description" content="1. zsh快捷键 2. oh-my-zsh框架配置 3. zsh主题配置">
+<meta name="keywords" content="shell,zsh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zsh详解">
+<meta property="og:url" content="https://cyriltaylor.github.io/posts/1879721729/index.html">
+<meta property="og:site_name" content="岁月静好">
+<meta property="og:description" content="1. zsh快捷键 2. oh-my-zsh框架配置 3. zsh主题配置">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-08T17:32:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zsh详解">
+<meta name="twitter:description" content="1. zsh快捷键 2. oh-my-zsh框架配置 3. zsh主题配置">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script src="../../js/pace.min.js"></script>
+  
+
+  
+  
+
+<link rel="stylesheet" href="/css/prism-xonokai.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="../../index.html" class="left">
+                    <span class="site-title">Cyril&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="../../index.html">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="../../archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="../../about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="../../index.html">
+                    <img src="../../images/logo.png" alt="logo" width="130px" height="130px">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Cyril&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一枚系统工程师自用的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Github" target="_blank" href="//github.com/CyrilTaylor">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//www.weibo.com/CyrilTaylor">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-blog/shell/zsh详解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      <span class="article-type type-1">原</span>zsh详解
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/shell/">shell</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-09-16
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <!-- TOC -->
+<ul>
+<li><a href="#1-zsh%E5%BF%AB%E6%8D%B7%E9%94%AE">1. zsh快捷键</a></li>
+<li><a href="#2-oh-my-zsh%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE">2. oh-my-zsh框架配置</a></li>
+<li><a href="#3-zsh%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE">3. zsh主题配置</a></li>
+</ul>
+<!-- /TOC -->
+<a id="more"></a>
+<h2 id="1-zsh快捷键"><a class="markdownIt-Anchor" href="#1-zsh快捷键"></a> 1. zsh快捷键</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">快捷键</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">⌃ + u</td>
+<td style="text-align:left">清空当前行</td>
+</tr>
+<tr>
+<td style="text-align:center">⌃ + a</td>
+<td style="text-align:left">移动到行首</td>
+</tr>
+<tr>
+<td style="text-align:center">⌃ + e</td>
+<td style="text-align:left">移动到行尾</td>
+</tr>
+<tr>
+<td style="text-align:center">⌃ + f</td>
+<td style="text-align:left">向前移动</td>
+</tr>
+<tr>
+<td style="text-align:center">⌃ + b</td>
+<td style="text-align:left">向后移动</td>
+</tr>
+<tr>
+<td style="text-align:center">⌃ + p</td>
+<td style="text-align:left">上一条命令</td>
+</tr>
+<tr>
+<td style="text-align:center">⌃ + n</td>
+<td style="text-align:left">下一条命令</td>
+</tr>
+<tr>
+<td style="text-align:center">⌃ + r</td>
+<td style="text-align:left">搜索历史命令</td>
+</tr>
+<tr>
+<td style="text-align:center">⌃ + y</td>
+<td style="text-align:left">召回最近用命令删除的文字</td>
+</tr>
+<tr>
+<td style="text-align:center">⌃ + h</td>
+<td style="text-align:left">删除光标之前的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">⌃ + d</td>
+<td style="text-align:left">删除光标所指的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">⌃ + w</td>
+<td style="text-align:left">删除光标之前的单词</td>
+</tr>
+<tr>
+<td style="text-align:center">⌃ + k</td>
+<td style="text-align:left">删除从光标到行尾的内容</td>
+</tr>
+<tr>
+<td style="text-align:center">⌃ + t</td>
+<td style="text-align:left">交换光标和之前的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">⌘ + Click</td>
+<td style="text-align:left">可以打开文件，文件夹和链接</td>
+</tr>
+<tr>
+<td style="text-align:center">⌘ + n</td>
+<td style="text-align:left">新建窗口</td>
+</tr>
+<tr>
+<td style="text-align:center">⌘ + t</td>
+<td style="text-align:left">新建标签页</td>
+</tr>
+<tr>
+<td style="text-align:center">⌘ + w</td>
+<td style="text-align:left">关闭当前页</td>
+</tr>
+<tr>
+<td style="text-align:center">⌘ + 数字&amp;⌘ + 方向键</td>
+<td style="text-align:left">切换标签页</td>
+</tr>
+<tr>
+<td style="text-align:center">⌥⌘ + 数字</td>
+<td style="text-align:left">切换窗口</td>
+</tr>
+<tr>
+<td style="text-align:center">⌘ + enter</td>
+<td style="text-align:left">切换全屏</td>
+</tr>
+<tr>
+<td style="text-align:center">⌘ + d</td>
+<td style="text-align:left">左右分屏</td>
+</tr>
+<tr>
+<td style="text-align:center">⇧⌘ + d</td>
+<td style="text-align:left">上下分屏</td>
+</tr>
+<tr>
+<td style="text-align:center">⌘ + ;</td>
+<td style="text-align:left">自动补全历史记录</td>
+</tr>
+<tr>
+<td style="text-align:center">⇧⌘ + h</td>
+<td style="text-align:left">自动补全剪贴板历史</td>
+</tr>
+<tr>
+<td style="text-align:center">⌥⌘ + e</td>
+<td style="text-align:left">查找所有来定位某个标签页</td>
+</tr>
+<tr>
+<td style="text-align:center">⌘ + r&amp;⌃ + l</td>
+<td style="text-align:left">清屏</td>
+</tr>
+<tr>
+<td style="text-align:center">⌘ + /</td>
+<td style="text-align:left">显示光标位置</td>
+</tr>
+<tr>
+<td style="text-align:center">⌥⌘ + b</td>
+<td style="text-align:left">历史回放</td>
+</tr>
+<tr>
+<td style="text-align:center">⌘ + f</td>
+<td style="text-align:left">查找，然后用tab和⇧ + tab可以向右和向左补全，补全之后的内容会被自动复制， 还可以用⌥ + enter将查找结果输入终端</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-oh-my-zsh框架配置"><a class="markdownIt-Anchor" href="#2-oh-my-zsh框架配置"></a> 2. oh-my-zsh框架配置</h2>
+<p>详情请参考<a href="zshrc">zsh配置</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Uncomment the following line to display red dots whilst waiting <span class="keyword">for</span> completion.</span></span><br><span class="line">COMPLETION_WAITING_DOTS="true"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Which plugins would you like to load?</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Standard plugins can be found <span class="keyword">in</span> ~/.oh-my-zsh/plugins/*</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Example format: plugins=(rails git textmate ruby lighthouse)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add wisely, as too many plugins slow down shell startup.</span></span><br><span class="line">plugins=(</span><br><span class="line">    git</span><br><span class="line">    colored-man-pages</span><br><span class="line">    colorize</span><br><span class="line">    command-not-found</span><br><span class="line">    cp</span><br><span class="line">    compleat</span><br><span class="line">    sudo</span><br><span class="line">    # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</span><br><span class="line">    zsh-syntax-highlighting</span><br><span class="line">    # git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br><span class="line">    zsh-autosuggestions</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> zsh-autosuggestions</span></span><br><span class="line">ZSH_AUTOSUGGEST_STRATEGY=(history completion)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> User configuration</span></span><br><span class="line">export TERM=xterm-256color</span><br></pre></td></tr></table></figure>
+<h2 id="3-zsh主题配置"><a class="markdownIt-Anchor" href="#3-zsh主题配置"></a> 3. zsh主题配置</h2>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">diff --git a/.zshrc b/.zshrc</span><br><span class="line">index 9553c66..1f90533 100644</span><br><span class="line"><span class="comment">--- a/.zshrc</span></span><br><span class="line"><span class="comment">+++ b/.zshrc</span></span><br><span class="line">@@ -9,7 +9,6 @@ export ZSH="/home/Cyril/.oh-my-zsh"</span><br><span class="line"> # to know which specific one was loaded, run: echo $RANDOM_THEME</span><br><span class="line"> # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes</span><br><span class="line"><span class="deletion">-ZSH_THEME="robbyrussell"</span></span><br><span class="line"><span class="addition">+# ZSH_THEME="robbyrussell"</span></span><br><span class="line"><span class="addition">+ZSH_THEME="powerlevel10k/powerlevel10k"</span></span><br><span class="line"></span><br><span class="line"> # Set list of themes to pick from when loading at random</span><br><span class="line"> # Setting this variable when ZSH_THEME=random will cause zsh to load</span><br><span class="line"></span><br><span class="line">diff --git a/.p10k.zsh b/.p10k.zsh</span><br><span class="line">index 9fb0e29..9d1d905 100644</span><br><span class="line"><span class="comment">--- a/.p10k.zsh</span></span><br><span class="line"><span class="comment">+++ b/.p10k.zsh</span></span><br><span class="line"><span class="meta">@@ -38,6 +38,7 @@</span></span><br><span class="line">       vcs                     # git status</span><br><span class="line">       # <span class="comment">=========================[ Line #2 ]=========================</span></span><br><span class="line">       newline</span><br><span class="line"><span class="addition">+      context</span></span><br><span class="line">       prompt_char             # prompt symbol</span><br><span class="line">   )</span><br><span class="line"></span><br><span class="line"><span class="meta">@@ -65,18 +66,19 @@</span></span><br><span class="line">       kubecontext             # current kubernetes context (https://kubernetes.io/)</span><br><span class="line">       terraform               # terraform workspace (https://www.terraform.io)</span><br><span class="line">       aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)</span><br><span class="line"><span class="deletion">-      context                 # user@hostname</span></span><br><span class="line"><span class="addition">+      # context               # user@hostname</span></span><br><span class="line">       nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)</span><br><span class="line">       ranger                  # ranger shell (https://github.com/ranger/ranger)</span><br><span class="line">       # vpn_ip                # virtual private network indicator</span><br><span class="line">       # ram                   # free RAM</span><br><span class="line">       # load                  # CPU load</span><br><span class="line"><span class="deletion">-      time                    # current time</span></span><br><span class="line"><span class="addition">+      # time                  # current time</span></span><br><span class="line">       # <span class="comment">=========================[ Line #2 ]=========================</span></span><br><span class="line">       newline</span><br><span class="line">       # public_ip             # public IP address</span><br><span class="line">       # proxy                 # system-wide http/https/ftp proxy</span><br><span class="line">       # battery               # internal battery</span><br><span class="line"><span class="addition">+      time                    # current time</span></span><br><span class="line">       # example               # example user-defined segment (see prompt_example function below)</span><br><span class="line">   )</span><br><span class="line"></span><br><span class="line"><span class="meta">@@ -301,6 +303,9 @@</span></span><br><span class="line">   # Branch icon. Set this parameter to '\uF126 ' for the popular Powerline branch icon.</span><br><span class="line">   typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '</span><br><span class="line">   POWERLEVEL9K_VCS_BRANCH_ICON=$&#123;(g::)POWERLEVEL9K_VCS_BRANCH_ICON&#125;</span><br><span class="line"><span class="addition">+  typeset -g POWERLEVEL9K_VCS_COMMIT_ICON=''</span></span><br><span class="line"><span class="addition">+  # typeset -g POWERLEVEL9K_VCS_REMOTE_BRANCH_ICON=''</span></span><br><span class="line"><span class="addition">+  typeset -g POWERLEVEL9K_VCS_TAG_ICON=''</span></span><br><span class="line"></span><br><span class="line">   # Untracked files icon. It's really a question mark, your font isn't broken.</span><br><span class="line">   # Change the value of this parameter to show a different icon.</span><br><span class="line"><span class="meta">@@ -349,10 +354,10 @@</span></span><br><span class="line">       res+="$&#123;clean&#125;$&#123;POWERLEVEL9K_VCS_BRANCH_ICON&#125;"</span><br><span class="line">       where=$&#123;(V)VCS_STATUS_LOCAL_BRANCH&#125;</span><br><span class="line">     elif [[ -n $VCS_STATUS_TAG ]]; then</span><br><span class="line"><span class="deletion">-      res+="$&#123;meta&#125;#"</span></span><br><span class="line"><span class="addition">+      res+="$&#123;meta&#125;$&#123;(g::)POWERLEVEL9K_VCS_TAG_ICON&#125;"</span></span><br><span class="line">       where=$&#123;(V)VCS_STATUS_TAG&#125;</span><br><span class="line">     else</span><br><span class="line"><span class="deletion">-      res+="$&#123;meta&#125;@"</span></span><br><span class="line"><span class="addition">+      res+="$&#123;meta&#125;$&#123;(g::)POWERLEVEL9K_VCS_COMMIT_ICON&#125;"</span></span><br><span class="line">       where=$&#123;VCS_STATUS_COMMIT[1,8]&#125;</span><br><span class="line">     fi</span><br><span class="line"></span><br><span class="line"><span class="meta">@@ -362,8 +367,8 @@</span></span><br><span class="line">     res+="$&#123;clean&#125;$&#123;where//\%/%%&#125;"  # escape %</span><br><span class="line"></span><br><span class="line">     # Show tracking branch name if it differs from local branch.</span><br><span class="line"><span class="deletion">-    if [[ -n $&#123;VCS_STATUS_REMOTE_BRANCH:#$VCS_STATUS_LOCAL_BRANCH&#125; ]]; then</span></span><br><span class="line"><span class="deletion">-      res+="$&#123;meta&#125;:$&#123;clean&#125;$&#123;(V)VCS_STATUS_REMOTE_BRANCH//\%/%%&#125;"  # escape %</span></span><br><span class="line"><span class="addition">+    if [[ -n $&#123;VCS_STATUS_REMOTE_BRANCH&#125; ]]; then</span></span><br><span class="line"><span class="addition">+      res+="$&#123;meta&#125;--&gt;$&#123;(g::)POWERLEVEL9K_VCS_REMOTE_BRANCH_ICON&#125;$&#123;clean&#125;$&#123;(V)VCS_STATUS_REMOTE_BRANCH//\%/%%&#125;"  # escape %</span></span><br><span class="line">     fi</span><br><span class="line"></span><br><span class="line">     # ⇣42 if behind the remote.</span><br><span class="line"><span class="meta">@@ -436,15 +441,15 @@</span></span><br><span class="line"></span><br><span class="line">   # Status when it's just an error code (e.g., '1'). No need to show it if prompt_char is enabled as</span><br><span class="line">   # it will signify error by turning red.</span><br><span class="line"><span class="deletion">-  typeset -g POWERLEVEL9K_STATUS_ERROR=false</span></span><br><span class="line"><span class="addition">+  typeset -g POWERLEVEL9K_STATUS_ERROR=true</span></span><br><span class="line">   typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND=160</span><br><span class="line"><span class="deletion">-  typeset -g POWERLEVEL9K_STATUS_ERROR_VISUAL_IDENTIFIER_EXPANSION='↵'</span></span><br><span class="line"><span class="addition">+  typeset -g POWERLEVEL9K_STATUS_ERROR_VISUAL_IDENTIFIER_EXPANSION='✘'</span></span><br><span class="line"></span><br><span class="line">   # Status when the last command was terminated by a signal.</span><br><span class="line">   typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL=true</span><br><span class="line">   typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_FOREGROUND=160</span><br><span class="line">   # Use terse signal names: "INT" instead of "SIGINT(2)".</span><br><span class="line"><span class="deletion">-  typeset -g POWERLEVEL9K_STATUS_VERBOSE_SIGNAME=false</span></span><br><span class="line"><span class="addition">+  typeset -g POWERLEVEL9K_STATUS_VERBOSE_SIGNAME=true</span></span><br><span class="line">   typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_VISUAL_IDENTIFIER_EXPANSION='↵'</span><br><span class="line"></span><br><span class="line">   # Status when some part of a pipe command fails and the overall exit status is also non-zero.</span><br></pre></td></tr></table></figure>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年10月09日 01:32</p>
+
+            <p>版权声明：本文为<a href="https://cyriltaylor.github.io">Cyril Taylor</a>原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。</p>
+
+        <p>本文链接： <a class="post-url" href="" title="zsh详解">https://cyriltaylor.github.io/posts/1879721729/</a></p>
+        <footer>
+
+            <a href="https://cyriltaylor.github.io">
+                <img src="../../images/logo.png" alt="Cyril Taylor">
+                Cyril Taylor
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="../../images/wechat_code.png" alt="打赏二维码" width="300" height="300">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="../../images/wechat_code.png">
+                <img class="reward-select-item-wechat" src="../../images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="../../images/alipay_code.png">
+                <img class="reward-select-item-alipay" src="../../images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://cyriltaylor.github.io/posts/1879721729/&title=《zsh详解》 — 岁月静好&pic=cover.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://cyriltaylor.github.io/posts/1879721729/&title=《zsh详解》 — 岁月静好&source=
+
+1. zsh快捷键
+2. oh-my-zsh框架配置
+3. zsh主题配置
+
+" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://cyriltaylor.github.io/posts/1879721729/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《zsh详解》 — 岁月静好&url=https://cyriltaylor.github.io/posts/1879721729/&via=https://cyriltaylor.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://cyriltaylor.github.io/posts/1879721729/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://cyriltaylor.github.io/posts/1879721729/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/shell/" class="color1">shell</a>
+      
+    <a href="/tags/zsh/" class="color4">zsh</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-zsh快捷键"><span class="post-toc-text"> 1. zsh快捷键</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-oh-my-zsh框架配置"><span class="post-toc-text"> 2. oh-my-zsh框架配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-zsh主题配置"><span class="post-toc-text"> 3. zsh主题配置</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="../1940182387/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          开源项目推荐
+        
+      </span>
+    </a>
+  
+  
+    <a href="../787202829/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Kotlin编程详解</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 Cyril Taylor<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://cyriltaylor.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="../../categories/C-C/">C/C++</a><a class="category-link" href="../../categories/Kotlin/">Kotlin</a><a class="category-link" href="../../categories/Linux/">Linux</a><a class="category-link" href="../../categories/shell/">shell</a><a class="category-link" href="../../categories/机器学习/">机器学习</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="../../tags/C-C/" style="font-size: 20px;">C/C++</a> <a href="../../tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="../../tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="../../tags/Linux/" style="font-size: 20px;">Linux</a> <a href="../../tags/Python/" style="font-size: 10px;">Python</a> <a href="../../tags/kernel-API/" style="font-size: 10px;">kernel API</a> <a href="../../tags/shell/" style="font-size: 10px;">shell</a> <a href="../../tags/zsh/" style="font-size: 10px;">zsh</a> <a href="../../tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="../../tags/编程/" style="font-size: 10px;">编程</a> <a href="../../tags/编程技巧/" style="font-size: 10px;">编程技巧</a> <a href="../../tags/编程规范/" style="font-size: 10px;">编程规范</a> <a href="../../tags/设备树/" style="font-size: 10px;">设备树</a> <a href="../../tags/高级特性/" style="font-size: 10px;">高级特性</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="../../index.html">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="../../archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="../../about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="../../tags/C-C/" style="font-size: 20px;">C/C++</a> <a href="../../tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="../../tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="../../tags/Linux/" style="font-size: 20px;">Linux</a> <a href="../../tags/Python/" style="font-size: 10px;">Python</a> <a href="../../tags/kernel-API/" style="font-size: 10px;">kernel API</a> <a href="../../tags/shell/" style="font-size: 10px;">shell</a> <a href="../../tags/zsh/" style="font-size: 10px;">zsh</a> <a href="../../tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="../../tags/编程/" style="font-size: 10px;">编程</a> <a href="../../tags/编程技巧/" style="font-size: 10px;">编程技巧</a> <a href="../../tags/编程规范/" style="font-size: 10px;">编程规范</a> <a href="../../tags/设备树/" style="font-size: 10px;">设备树</a> <a href="../../tags/高级特性/" style="font-size: 10px;">高级特性</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="../../js/search.js"></script>
+<script src="../../js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="../../js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="../../js/animate.js"></script>
+
+
+  <script src="../../js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>C++编程规范 | 岁月静好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Cyril Taylor,Cyril's Blog">
+  
+  <meta name="description" content="1. 常用单词缩写">
+<meta name="keywords" content="C&#x2F;C++,编程规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++编程规范">
+<meta property="og:url" content="https://cyriltaylor.github.io/posts/3424946910/index.html">
+<meta property="og:site_name" content="岁月静好">
+<meta property="og:description" content="1. 常用单词缩写">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-08T17:32:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++编程规范">
+<meta name="twitter:description" content="1. 常用单词缩写">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script src="../../js/pace.min.js"></script>
+  
+
+  
+  
+
+<link rel="stylesheet" href="/css/prism-xonokai.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="../../index.html" class="left">
+                    <span class="site-title">Cyril&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="../../index.html">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="../../archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="../../about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="../../index.html">
+                    <img src="../../images/logo.png" alt="logo" width="130px" height="130px">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Cyril&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一枚系统工程师自用的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Github" target="_blank" href="//github.com/CyrilTaylor">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//www.weibo.com/CyrilTaylor">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-blog/C++/C++编程规范" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      <span class="article-type type-1">原</span>C++编程规范
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/C/C++/">C/C++</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-10-08
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <!-- TOC -->
+<ul>
+<li><a href="#1-%E5%B8%B8%E7%94%A8%E5%8D%95%E8%AF%8D%E7%BC%A9%E5%86%99">1. 常用单词缩写</a></li>
+</ul>
+<!-- /TOC -->
+<a id="more"></a>
+<h2 id="1-常用单词缩写"><a class="markdownIt-Anchor" href="#1-常用单词缩写"></a> 1. 常用单词缩写</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">单词</th>
+<th style="text-align:center">缩写</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">addition</td>
+<td style="text-align:center">add</td>
+<td>加</td>
+</tr>
+<tr>
+<td style="text-align:center">answer</td>
+<td style="text-align:center">ans</td>
+<td>响应、回答</td>
+</tr>
+<tr>
+<td style="text-align:center">array</td>
+<td style="text-align:center">arr</td>
+<td>数组、集合</td>
+</tr>
+<tr>
+<td style="text-align:center">average</td>
+<td style="text-align:center">avg</td>
+<td>平均</td>
+</tr>
+<tr>
+<td style="text-align:center">buffer</td>
+<td style="text-align:center">buf / buff</td>
+<td>缓冲区</td>
+</tr>
+<tr>
+<td style="text-align:center">capture</td>
+<td style="text-align:center">cap / capt</td>
+<td>捕获</td>
+</tr>
+<tr>
+<td style="text-align:center">check</td>
+<td style="text-align:center">chk</td>
+<td>检查</td>
+</tr>
+<tr>
+<td style="text-align:center">column</td>
+<td style="text-align:center">col</td>
+<td>列</td>
+</tr>
+<tr>
+<td style="text-align:center">control</td>
+<td style="text-align:center">ctrl</td>
+<td>控制</td>
+</tr>
+<tr>
+<td style="text-align:center">count</td>
+<td style="text-align:center">cnt</td>
+<td>计数器</td>
+</tr>
+<tr>
+<td style="text-align:center">decode</td>
+<td style="text-align:center">dec</td>
+<td>解码、译码</td>
+</tr>
+<tr>
+<td style="text-align:center">define</td>
+<td style="text-align:center">def</td>
+<td>定义</td>
+</tr>
+<tr>
+<td style="text-align:center">delete</td>
+<td style="text-align:center">del</td>
+<td>删除</td>
+</tr>
+<tr>
+<td style="text-align:center">destination</td>
+<td style="text-align:center">dst / dest</td>
+<td>目的</td>
+</tr>
+<tr>
+<td style="text-align:center">display</td>
+<td style="text-align:center">disp</td>
+<td>显示</td>
+</tr>
+<tr>
+<td style="text-align:center">division</td>
+<td style="text-align:center">div</td>
+<td>除法</td>
+</tr>
+<tr>
+<td style="text-align:center">encode</td>
+<td style="text-align:center">enc</td>
+<td>编码</td>
+</tr>
+<tr>
+<td style="text-align:center">environment</td>
+<td style="text-align:center">env</td>
+<td>环境</td>
+</tr>
+<tr>
+<td style="text-align:center">error</td>
+<td style="text-align:center">err</td>
+<td>错误</td>
+</tr>
+<tr>
+<td style="text-align:center">float</td>
+<td style="text-align:center">flt</td>
+<td>浮动、浮点</td>
+</tr>
+<tr>
+<td style="text-align:center">frequency</td>
+<td style="text-align:center">freq</td>
+<td>频率</td>
+</tr>
+<tr>
+<td style="text-align:center">header</td>
+<td style="text-align:center">hdr</td>
+<td>开始、开头</td>
+</tr>
+<tr>
+<td style="text-align:center">image</td>
+<td style="text-align:center">img</td>
+<td>影像、镜像</td>
+</tr>
+<tr>
+<td style="text-align:center">increment</td>
+<td style="text-align:center">inc</td>
+<td>增加、增量</td>
+</tr>
+<tr>
+<td style="text-align:center">index</td>
+<td style="text-align:center">idx</td>
+<td>索引、指示、</td>
+</tr>
+<tr>
+<td style="text-align:center">initalize</td>
+<td style="text-align:center">init</td>
+<td>初始化</td>
+</tr>
+<tr>
+<td style="text-align:center">iteration</td>
+<td style="text-align:center">itr</td>
+<td>循环、迭代</td>
+</tr>
+<tr>
+<td style="text-align:center">length</td>
+<td style="text-align:center">len</td>
+<td>长度</td>
+</tr>
+<tr>
+<td style="text-align:center">make</td>
+<td style="text-align:center">mk</td>
+<td>制造、形成</td>
+</tr>
+<tr>
+<td style="text-align:center">memory</td>
+<td style="text-align:center">mem</td>
+<td>内存</td>
+</tr>
+<tr>
+<td style="text-align:center">message</td>
+<td style="text-align:center">msg</td>
+<td>消息</td>
+</tr>
+<tr>
+<td style="text-align:center">middle</td>
+<td style="text-align:center">mid</td>
+<td>中值</td>
+</tr>
+<tr>
+<td style="text-align:center">multiplication</td>
+<td style="text-align:center">mul</td>
+<td>乘法</td>
+</tr>
+<tr>
+<td style="text-align:center">number</td>
+<td style="text-align:center">num</td>
+<td>数量、编号</td>
+</tr>
+<tr>
+<td style="text-align:center">operand</td>
+<td style="text-align:center">opnd</td>
+<td>操作数</td>
+</tr>
+<tr>
+<td style="text-align:center">operator</td>
+<td style="text-align:center">optr</td>
+<td>操作</td>
+</tr>
+<tr>
+<td style="text-align:center">optimization</td>
+<td style="text-align:center">opt</td>
+<td>最优</td>
+</tr>
+<tr>
+<td style="text-align:center">packet</td>
+<td style="text-align:center">pkt</td>
+<td>消息包</td>
+</tr>
+<tr>
+<td style="text-align:center">pointer</td>
+<td style="text-align:center">ptr</td>
+<td>指针</td>
+</tr>
+<tr>
+<td style="text-align:center">positon</td>
+<td style="text-align:center">pos</td>
+<td>位置</td>
+</tr>
+<tr>
+<td style="text-align:center">previous</td>
+<td style="text-align:center">pre / prev</td>
+<td>以前的</td>
+</tr>
+<tr>
+<td style="text-align:center">receive</td>
+<td style="text-align:center">recv</td>
+<td>收到、接收</td>
+</tr>
+<tr>
+<td style="text-align:center">record</td>
+<td style="text-align:center">rcd</td>
+<td>记录</td>
+</tr>
+<tr>
+<td style="text-align:center">result</td>
+<td style="text-align:center">res</td>
+<td>结果</td>
+</tr>
+<tr>
+<td style="text-align:center">return</td>
+<td style="text-align:center">ret</td>
+<td>返回</td>
+</tr>
+<tr>
+<td style="text-align:center">source</td>
+<td style="text-align:center">src</td>
+<td>源头</td>
+</tr>
+<tr>
+<td style="text-align:center">stack</td>
+<td style="text-align:center">stk</td>
+<td>栈</td>
+</tr>
+<tr>
+<td style="text-align:center">string</td>
+<td style="text-align:center">str</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">subtraction</td>
+<td style="text-align:center">sub</td>
+<td>减</td>
+</tr>
+<tr>
+<td style="text-align:center">table</td>
+<td style="text-align:center">tab</td>
+<td>表</td>
+</tr>
+<tr>
+<td style="text-align:center">temporary</td>
+<td style="text-align:center">tmp / temp</td>
+<td>临时</td>
+</tr>
+<tr>
+<td style="text-align:center">timestamp</td>
+<td style="text-align:center">ts</td>
+<td>时间戳</td>
+</tr>
+<tr>
+<td style="text-align:center">total</td>
+<td style="text-align:center">tot</td>
+<td>全部的</td>
+</tr>
+<tr>
+<td style="text-align:center">value</td>
+<td style="text-align:center">val</td>
+<td>值</td>
+</tr>
+</tbody>
+</table>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年10月09日 01:32</p>
+
+            <p>版权声明：本文为<a href="https://cyriltaylor.github.io">Cyril Taylor</a>原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。</p>
+
+        <p>本文链接： <a class="post-url" href="" title="C++编程规范">https://cyriltaylor.github.io/posts/3424946910/</a></p>
+        <footer>
+
+
+
+
+
+            <a href="https://cyriltaylor.github.io">
+                <img src="../../images/logo.png" alt="Cyril Taylor">
+                Cyril Taylor
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="../../images/wechat_code.png" alt="打赏二维码" width="300" height="300">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="../../images/wechat_code.png">
+                <img class="reward-select-item-wechat" src="../../images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="../../images/alipay_code.png">
+                <img class="reward-select-item-alipay" src="../../images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://cyriltaylor.github.io/posts/3424946910/&title=《C++编程规范》 — 岁月静好&pic=programming_software_development_planning_flow_chart_diagram_objects_elements_connections_by_spainter.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://cyriltaylor.github.io/posts/3424946910/&title=《C++编程规范》 — 岁月静好&source=
+
+1. 常用单词缩写
+
+" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://cyriltaylor.github.io/posts/3424946910/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C++编程规范》 — 岁月静好&url=https://cyriltaylor.github.io/posts/3424946910/&via=https://cyriltaylor.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://cyriltaylor.github.io/posts/3424946910/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://cyriltaylor.github.io/posts/3424946910/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/C/C++/" class="color1">C/C++</a>
+      
+    <a href="/tags/编程规范/" class="color5">编程规范</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-常用单词缩写"><span class="post-toc-text"> 1. 常用单词缩写</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="../3787073306/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Linux设备树
+        
+      </span>
+    </a>
+  
+  
+    <a href="../441574646/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">斯坦福大学2014(吴恩达)机器学习教程中文笔记</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 Cyril Taylor<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://cyriltaylor.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="../../categories/C-C/">C/C++</a><a class="category-link" href="../../categories/Kotlin/">Kotlin</a><a class="category-link" href="../../categories/Linux/">Linux</a><a class="category-link" href="../../categories/shell/">shell</a><a class="category-link" href="../../categories/机器学习/">机器学习</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="../../tags/C-C/" style="font-size: 20px;">C/C++</a> <a href="../../tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="../../tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="../../tags/Linux/" style="font-size: 20px;">Linux</a> <a href="../../tags/Python/" style="font-size: 10px;">Python</a> <a href="../../tags/kernel-API/" style="font-size: 10px;">kernel API</a> <a href="../../tags/shell/" style="font-size: 10px;">shell</a> <a href="../../tags/zsh/" style="font-size: 10px;">zsh</a> <a href="../../tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="../../tags/编程/" style="font-size: 10px;">编程</a> <a href="../../tags/编程技巧/" style="font-size: 10px;">编程技巧</a> <a href="../../tags/编程规范/" style="font-size: 10px;">编程规范</a> <a href="../../tags/设备树/" style="font-size: 10px;">设备树</a> <a href="../../tags/高级特性/" style="font-size: 10px;">高级特性</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="../../index.html">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="../../archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="../../about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="../../tags/C-C/" style="font-size: 20px;">C/C++</a> <a href="../../tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="../../tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="../../tags/Linux/" style="font-size: 20px;">Linux</a> <a href="../../tags/Python/" style="font-size: 10px;">Python</a> <a href="../../tags/kernel-API/" style="font-size: 10px;">kernel API</a> <a href="../../tags/shell/" style="font-size: 10px;">shell</a> <a href="../../tags/zsh/" style="font-size: 10px;">zsh</a> <a href="../../tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="../../tags/编程/" style="font-size: 10px;">编程</a> <a href="../../tags/编程技巧/" style="font-size: 10px;">编程技巧</a> <a href="../../tags/编程规范/" style="font-size: 10px;">编程规范</a> <a href="../../tags/设备树/" style="font-size: 10px;">设备树</a> <a href="../../tags/高级特性/" style="font-size: 10px;">高级特性</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="../../js/search.js"></script>
+<script src="../../js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="../../js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="../../js/animate.js"></script>
+
+
+  <script src="../../js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
