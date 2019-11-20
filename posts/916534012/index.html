@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>UML建模详解 | 岁月静好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Cyril Taylor,Cyril's Blog">
+  
+  <meta name="description" content="UML活动图 启动SD卡刷机程序读取分区表文件读取下一个节点的属性是否存在起始地址存在不存在将起始地址转为unit数保存起始地址计算分区起始地址将起始地址转为unit数保存起始地址存在上一个节点是否存在起始地址不存在无效起始地址是否有效有效对应的镜像文件是否存在存在不存在镜像文件哈希值匹配？匹配不匹配打印错误信息，并设置信号灯为常亮红色存在是否存在需下载的镜像文件不存在最后一个节点？否按照分区起">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UML建模详解">
+<meta property="og:url" content="https://cyriltaylor.github.io/posts/916534012/index.html">
+<meta property="og:site_name" content="岁月静好">
+<meta property="og:description" content="UML活动图 启动SD卡刷机程序读取分区表文件读取下一个节点的属性是否存在起始地址存在不存在将起始地址转为unit数保存起始地址计算分区起始地址将起始地址转为unit数保存起始地址存在上一个节点是否存在起始地址不存在无效起始地址是否有效有效对应的镜像文件是否存在存在不存在镜像文件哈希值匹配？匹配不匹配打印错误信息，并设置信号灯为常亮红色存在是否存在需下载的镜像文件不存在最后一个节点？否按照分区起">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-15T08:37:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UML建模详解">
+<meta name="twitter:description" content="UML活动图 启动SD卡刷机程序读取分区表文件读取下一个节点的属性是否存在起始地址存在不存在将起始地址转为unit数保存起始地址计算分区起始地址将起始地址转为unit数保存起始地址存在上一个节点是否存在起始地址不存在无效起始地址是否有效有效对应的镜像文件是否存在存在不存在镜像文件哈希值匹配？匹配不匹配打印错误信息，并设置信号灯为常亮红色存在是否存在需下载的镜像文件不存在最后一个节点？否按照分区起">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script src="../../js/pace.min.js"></script>
+  
+
+  
+  
+
+<link rel="stylesheet" href="/css/prism-xonokai.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="../../index.html" class="left">
+                    <span class="site-title">Cyril&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="../../index.html">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="../../archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="../../about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="../../index.html">
+                    <img src="../../images/logo.png" alt="logo" width="130px" height="130px">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Cyril&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一枚系统工程师自用的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Github" target="_blank" href="//github.com/CyrilTaylor">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//www.weibo.com/CyrilTaylor">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-tools/UML建模详解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      <span class="article-type type-original">原</span>UML建模详解
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-11-15
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h2 id="uml活动图"><a class="markdownIt-Anchor" href="#uml活动图"></a> UML活动图</h2>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="1335px" preserveAspectRatio="none" style="width:451px;height:1335px;" version="1.1" viewBox="0 0 451 1335" width="451px" zoomAndPan="magnify"><defs><filter height="300%" id="f1gp7wrywyjiqd" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><ellipse cx="194" cy="20" fill="#000000" filter="url(#f1gp7wrywyjiqd)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/><rect fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="121" x="133.5" y="50"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="101" x="143.5" y="71.1387">启动SD卡刷机程序</text><rect fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="104" x="142" y="152.3711"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="84" x="152" y="173.5098">读取分区表文件</text><rect fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="140" x="124" y="298.7422"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="120" x="134" y="319.8809">读取下一个节点的属性</text><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="150,352.7109,238,352.7109,250,364.7109,238,376.7109,150,376.7109,138,364.7109,150,352.7109" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="88" x="150" y="368.519">是否存在起始地址</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="22" x="116" y="362.1167">存在</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="33" x="250" y="362.1167">不存在</text><rect fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="140" x="39" y="386.7109"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="120" x="49" y="407.8496">将起始地址转为unit数</text><rect fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="92" x="63" y="455.6797"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="72" x="73" y="476.8184">保存起始地址</text><rect fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="116" x="221" y="436.7227"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="96" x="231" y="457.8613">计算分区起始地址</text><rect fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="140" x="209" y="505.6914"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="120" x="219" y="526.8301">将起始地址转为unit数</text><rect fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="92" x="233" y="559.6602"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="72" x="243" y="580.7988">保存起始地址</text><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="240.5,386.7109,317.5,386.7109,329.5,399.5156,317.5,412.3203,240.5,412.3203,228.5,399.5156,240.5,386.7109" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="22" x="283" y="422.5308">存在</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="77" x="240.5" y="396.9214">上一个节点是否</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="66" x="240.5" y="409.7261">存在起始地址</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="33" x="329.5" y="396.9214">不存在</text><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="279,613.6289,291,625.6289,279,637.6289,267,625.6289,279,613.6289" style="stroke: #A80036; stroke-width: 1.5;"/><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="194,643.6289,206,655.6289,194,667.6289,182,655.6289,194,643.6289" style="stroke: #A80036; stroke-width: 1.5;"/><ellipse cx="194" cy="756.5469" fill="#FFFFFF" filter="url(#f1gp7wrywyjiqd)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 2.5;" x1="187.8128" x2="200.1872" y1="750.3597" y2="762.7341"/><line style="stroke: #000000; stroke-width: 2.5;" x1="200.1872" x2="187.8128" y1="750.3597" y2="762.7341"/><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="150,698.1445,238,698.1445,250,710.1445,238,722.1445,150,722.1445,138,710.1445,150,698.1445" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="22" x="198" y="732.355">无效</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="88" x="150" y="713.9526">起始地址是否有效</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="22" x="250" y="707.5503">有效</text><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="133.5,856.9492,254.5,856.9492,266.5,868.9492,254.5,880.9492,133.5,880.9492,121.5,868.9492,133.5,856.9492" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="121" x="133.5" y="872.7573">对应的镜像文件是否存在</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="22" x="99.5" y="866.355">存在</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="33" x="266.5" y="866.355">不存在</text><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="46,890.9492,156,890.9492,168,902.9492,156,914.9492,46,914.9492,34,902.9492,46,890.9492" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="110" x="46" y="906.7573">镜像文件哈希值匹配？</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="22" x="12" y="900.355">匹配</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="33" x="168" y="900.355">不匹配</text><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="101,930.9492,113,942.9492,101,954.9492,89,942.9492,101,930.9492" style="stroke: #A80036; stroke-width: 1.5;"/><rect fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="128" x="223" y="890.9492"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="233" y="912.0879">打印错误信息，并设</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="233" y="926.0566">置信号灯为常亮红色</text><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="194,960.9492,206,972.9492,194,984.9492,182,972.9492,194,960.9492" style="stroke: #A80036; stroke-width: 1.5;"/><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="128,808.5469,260,808.5469,272,820.5469,260,832.5469,128,832.5469,116,820.5469,128,808.5469" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="22" x="198" y="842.7573">存在</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="132" x="128" y="824.355">是否存在需下载的镜像文件</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="33" x="272" y="817.9526">不存在</text><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="194,1004.9492,206,1016.9492,194,1028.9492,182,1016.9492,194,1004.9492" style="stroke: #A80036; stroke-width: 1.5;"/><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="194,254.7422,206,266.7422,194,278.7422,182,266.7422,194,254.7422" style="stroke: #A80036; stroke-width: 1.5;"/><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="155.5,1048.9492,232.5,1048.9492,244.5,1060.9492,232.5,1072.9492,155.5,1072.9492,143.5,1060.9492,155.5,1048.9492" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="77" x="155.5" y="1064.7573">最后一个节点？</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="11" x="244.5" y="1058.355">否</text><rect fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="164" x="112" y="1092.9492"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="144" x="122" y="1114.0879">按照分区起始地址递增排序</text><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="155.5,206.3398,232.5,206.3398,244.5,218.3398,232.5,230.3398,155.5,230.3398,143.5,218.3398,155.5,206.3398" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="22" x="198" y="240.5503">成功</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="77" x="155.5" y="222.1479">文件读取成功？</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="22" x="244.5" y="215.7456">失败</text><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="194,1146.918,206,1158.918,194,1170.918,182,1158.918,194,1146.918" style="stroke: #A80036; stroke-width: 1.5;"/><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="150,103.9688,238,103.9688,250,115.9688,238,127.9688,150,127.9688,138,115.9688,150,103.9688" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="22" x="198" y="138.1792">存在</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="88" x="150" y="119.7769">分区表文件存在？</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="33" x="250" y="113.3745">不存在</text><polygon fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" points="194,1190.918,206,1202.918,194,1214.918,182,1202.918,194,1190.918" style="stroke: #A80036; stroke-width: 1.5;"/><rect fill="#FEFECE" filter="url(#f1gp7wrywyjiqd)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="128" x="130" y="1234.918"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="140" y="1256.0566">打印错误信息，并设</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="140" y="1270.0254">置信号灯为常亮红色</text><ellipse cx="194" cy="1313.8555" fill="#FFFFFF" filter="url(#f1gp7wrywyjiqd)" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/><ellipse cx="194" cy="1313.8555" fill="#000000" rx="6" ry="6" style="stroke: #7F7F7F; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="30" y2="50"/><polygon fill="#A80036" points="190,40,194,50,198,40,194,44" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="109" x2="109" y1="420.6797" y2="455.6797"/><polygon fill="#A80036" points="105,445.6797,109,455.6797,113,445.6797,109,449.6797" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="279" x2="279" y1="470.6914" y2="505.6914"/><polygon fill="#A80036" points="275,495.6914,279,505.6914,283,495.6914,279,499.6914" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="279" x2="279" y1="539.6602" y2="559.6602"/><polygon fill="#A80036" points="275,549.6602,279,559.6602,283,549.6602,279,553.6602" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="279" x2="279" y1="412.3203" y2="436.7227"/><polygon fill="#A80036" points="275,426.7227,279,436.7227,283,426.7227,279,430.7227" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="329.5" x2="359" y1="399.5156" y2="399.5156"/><polygon fill="#A80036" points="355,512.2734,359,522.2734,363,512.2734,359,516.2734" style="stroke: #A80036; stroke-width: 1.5;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="359" x2="359" y1="399.5156" y2="625.6289"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="359" x2="291" y1="625.6289" y2="625.6289"/><polygon fill="#A80036" points="301,621.6289,291,625.6289,301,629.6289,297,625.6289" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="279" x2="279" y1="593.6289" y2="613.6289"/><polygon fill="#A80036" points="275,603.6289,279,613.6289,283,603.6289,279,607.6289" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="138" x2="109" y1="364.7109" y2="364.7109"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="109" x2="109" y1="364.7109" y2="386.7109"/><polygon fill="#A80036" points="105,376.7109,109,386.7109,113,376.7109,109,380.7109" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="250" x2="279" y1="364.7109" y2="364.7109"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="279" x2="279" y1="364.7109" y2="386.7109"/><polygon fill="#A80036" points="275,376.7109,279,386.7109,283,376.7109,279,380.7109" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="109" x2="109" y1="489.6484" y2="655.6289"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="109" x2="182" y1="655.6289" y2="655.6289"/><polygon fill="#A80036" points="172,651.6289,182,655.6289,172,659.6289,176,655.6289" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="279" x2="279" y1="637.6289" y2="655.6289"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="279" x2="206" y1="655.6289" y2="655.6289"/><polygon fill="#A80036" points="216,651.6289,206,655.6289,216,659.6289,212,655.6289" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="332.7109" y2="352.7109"/><polygon fill="#A80036" points="190,342.7109,194,352.7109,198,342.7109,194,346.7109" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="722.1445" y2="746.5469"/><polygon fill="#A80036" points="190,736.5469,194,746.5469,198,736.5469,194,740.5469" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="250" x2="262" y1="710.1445" y2="710.1445"/><polygon fill="#A80036" points="258,743.5469,262,753.5469,266,743.5469,262,747.5469" style="stroke: #A80036; stroke-width: 1.5;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="262" x2="262" y1="710.1445" y2="788.5469"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="262" x2="194" y1="788.5469" y2="788.5469"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="788.5469" y2="808.5469"/><polygon fill="#A80036" points="190,798.5469,194,808.5469,198,798.5469,194,802.5469" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="667.6289" y2="698.1445"/><polygon fill="#A80036" points="190,688.1445,194,698.1445,198,688.1445,194,692.1445" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="34" x2="24" y1="902.9492" y2="902.9492"/><polygon fill="#A80036" points="20,912.9492,24,922.9492,28,912.9492,24,916.9492" style="stroke: #A80036; stroke-width: 1.5;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="24" x2="24" y1="902.9492" y2="942.9492"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="24" x2="89" y1="942.9492" y2="942.9492"/><polygon fill="#A80036" points="79,938.9492,89,942.9492,79,946.9492,83,942.9492" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="168" x2="178" y1="902.9492" y2="902.9492"/><polygon fill="#A80036" points="174,912.9492,178,922.9492,182,912.9492,178,916.9492" style="stroke: #A80036; stroke-width: 1.5;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="178" x2="178" y1="902.9492" y2="942.9492"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="178" x2="113" y1="942.9492" y2="942.9492"/><polygon fill="#A80036" points="123,938.9492,113,942.9492,123,946.9492,119,942.9492" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="121.5" x2="101" y1="868.9492" y2="868.9492"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="101" x2="101" y1="868.9492" y2="890.9492"/><polygon fill="#A80036" points="97,880.9492,101,890.9492,105,880.9492,101,884.9492" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="266.5" x2="287" y1="868.9492" y2="868.9492"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="287" x2="287" y1="868.9492" y2="890.9492"/><polygon fill="#A80036" points="283,880.9492,287,890.9492,291,880.9492,287,884.9492" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="101" x2="101" y1="954.9492" y2="972.9492"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="101" x2="182" y1="972.9492" y2="972.9492"/><polygon fill="#A80036" points="172,968.9492,182,972.9492,172,976.9492,176,972.9492" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="287" x2="287" y1="938.8867" y2="972.9492"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="287" x2="206" y1="972.9492" y2="972.9492"/><polygon fill="#A80036" points="216,968.9492,206,972.9492,216,976.9492,212,972.9492" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="832.5469" y2="856.9492"/><polygon fill="#A80036" points="190,846.9492,194,856.9492,198,846.9492,194,850.9492" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="272" x2="371" y1="820.5469" y2="820.5469"/><polygon fill="#A80036" points="367,910.9492,371,920.9492,375,910.9492,371,914.9492" style="stroke: #A80036; stroke-width: 1.5;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="371" x2="371" y1="820.5469" y2="1016.9492"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="371" x2="206" y1="1016.9492" y2="1016.9492"/><polygon fill="#A80036" points="216,1012.9492,206,1016.9492,216,1020.9492,212,1016.9492" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="984.9492" y2="1004.9492"/><polygon fill="#A80036" points="190,994.9492,194,1004.9492,198,994.9492,194,998.9492" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="278.7422" y2="298.7422"/><polygon fill="#A80036" points="190,288.7422,194,298.7422,198,288.7422,194,292.7422" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="244.5" x2="389" y1="1060.9492" y2="1060.9492"/><polygon fill="#A80036" points="385,672.7891,389,662.7891,393,672.7891,389,668.7891" style="stroke: #A80036; stroke-width: 1.5;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="389" x2="389" y1="266.7422" y2="1060.9492"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="389" x2="206" y1="266.7422" y2="266.7422"/><polygon fill="#A80036" points="216,262.7422,206,266.7422,216,270.7422,212,266.7422" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="1028.9492" y2="1048.9492"/><polygon fill="#A80036" points="190,1038.9492,194,1048.9492,198,1038.9492,194,1042.9492" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="1072.9492" y2="1092.9492"/><polygon fill="#A80036" points="190,1082.9492,194,1092.9492,198,1082.9492,194,1086.9492" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="230.3398" y2="254.7422"/><polygon fill="#A80036" points="190,244.7422,194,254.7422,198,244.7422,194,248.7422" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="244.5" x2="407" y1="218.3398" y2="218.3398"/><polygon fill="#A80036" points="403,682.7891,407,692.7891,411,682.7891,407,686.7891" style="stroke: #A80036; stroke-width: 1.5;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="407" x2="407" y1="218.3398" y2="1158.918"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="407" x2="206" y1="1158.918" y2="1158.918"/><polygon fill="#A80036" points="216,1154.918,206,1158.918,216,1162.918,212,1158.918" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="1126.918" y2="1146.918"/><polygon fill="#A80036" points="190,1136.918,194,1146.918,198,1136.918,194,1140.918" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="186.3398" y2="206.3398"/><polygon fill="#A80036" points="190,196.3398,194,206.3398,198,196.3398,194,200.3398" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="127.9688" y2="152.3711"/><polygon fill="#A80036" points="190,142.3711,194,152.3711,198,142.3711,194,146.3711" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="250" x2="425" y1="115.9688" y2="115.9688"/><polygon fill="#A80036" points="421,652.7891,425,662.7891,429,652.7891,425,656.7891" style="stroke: #A80036; stroke-width: 1.5;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="425" x2="425" y1="115.9688" y2="1202.918"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="425" x2="206" y1="1202.918" y2="1202.918"/><polygon fill="#A80036" points="216,1198.918,206,1202.918,216,1206.918,212,1202.918" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="1170.918" y2="1190.918"/><polygon fill="#A80036" points="190,1180.918,194,1190.918,198,1180.918,194,1184.918" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="83.9688" y2="103.9688"/><polygon fill="#A80036" points="190,93.9688,194,103.9688,198,93.9688,194,97.9688" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="1214.918" y2="1234.918"/><polygon fill="#A80036" points="190,1224.918,194,1234.918,198,1224.918,194,1228.918" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="194" x2="194" y1="1282.8555" y2="1302.8555"/><polygon fill="#A80036" points="190,1292.8555,194,1302.8555,198,1292.8555,194,1296.8555" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[3cf04ecd4bd4d986af5fc794365d7b9b]
+@startuml
+start
+:启动SD卡刷机程序;
+if (分区表文件存在？) then (存在)
+  :读取分区表文件;
+  if (文件读取成功？) then (成功)
+    repeat
+      :读取下一个节点的属性;
+      if (是否存在起始地址) then (存在)
+        :将起始地址转为unit数;
+        :保存起始地址;
+      else (不存在)
+        if (上一个节点是否\n存在起始地址) then (存在)
+          :计算分区起始地址;
+          :将起始地址转为unit数;
+          :保存起始地址;
+        else (不存在)
+        endif
+      endif
+      if (起始地址是否有效) then (有效)
+      else (无效)
+        end
+      endif
+
+      if (是否存在需下载的镜像文件) then (存在)
+        if (对应的镜像文件是否存在) then (存在)
+          if (镜像文件哈希值匹配？) then (匹配)
+          else (不匹配)
+          endif
+        else (不存在)
+          :打印错误信息，并设\n置信号灯为常亮红色;
+        endif
+      else (不存在)
+      endif
+    repeat while(最后一个节点？) is (否)
+    :按照分区起始地址递增排序;
+
+  else (失败)
+  endif
+else (不存在)
+endif
+:打印错误信息，并设\n置信号灯为常亮红色;
+stop
+@enduml
+
+PlantUML version 1.2019.12(Sun Nov 03 10:24:54 UTC 2019)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.7.0_25-b15
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年11月15日 16:37</p>
+
+            <p>版权声明：本文为<a href="https://cyriltaylor.github.io">Cyril Taylor</a>原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。</p>
+
+        <p>本文链接： <a class="post-url" href="" title="UML建模详解">https://cyriltaylor.github.io/posts/916534012/</a></p>
+        <footer>
+
+
+
+
+
+            <a href="https://cyriltaylor.github.io">
+                <img src="../../images/logo.png" alt="Cyril Taylor">
+                Cyril Taylor
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="../../images/wechat_code.png" alt="打赏二维码" width="300" height="300">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="../../images/wechat_code.png">
+                <img class="reward-select-item-wechat" src="../../images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="../../images/alipay_code.png">
+                <img class="reward-select-item-alipay" src="../../images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://cyriltaylor.github.io/posts/916534012/&title=《UML建模详解》 — 岁月静好&pic=https://cyriltaylor.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://cyriltaylor.github.io/posts/916534012/&title=《UML建模详解》 — 岁月静好&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://cyriltaylor.github.io/posts/916534012/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《UML建模详解》 — 岁月静好&url=https://cyriltaylor.github.io/posts/916534012/&via=https://cyriltaylor.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://cyriltaylor.github.io/posts/916534012/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://cyriltaylor.github.io/posts/916534012/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#uml活动图"><span class="post-toc-text"> UML活动图</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="../99546601/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">PySide2 API</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 Cyril Taylor<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://cyriltaylor.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="../../categories/C-C/">C/C++</a><a class="category-link" href="../../categories/Java/">Java</a><a class="category-link" href="../../categories/Kotlin/">Kotlin</a><a class="category-link" href="../../categories/Linux/">Linux</a><a class="category-link" href="../../categories/shell/">shell</a><a class="category-link" href="../../categories/机器学习/">机器学习</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="../../tags/C-C/" style="font-size: 16.67px;">C/C++</a> <a href="../../tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="../../tags/Java/" style="font-size: 10px;">Java</a> <a href="../../tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="../../tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="../../tags/Linux/" style="font-size: 20px;">Linux</a> <a href="../../tags/Linux驱动/" style="font-size: 10px;">Linux驱动</a> <a href="../../tags/Pinctrl/" style="font-size: 10px;">Pinctrl</a> <a href="../../tags/Python/" style="font-size: 10px;">Python</a> <a href="../../tags/git/" style="font-size: 10px;">git</a> <a href="../../tags/kernel-API/" style="font-size: 10px;">kernel API</a> <a href="../../tags/shell/" style="font-size: 13.33px;">shell</a> <a href="../../tags/zsh/" style="font-size: 10px;">zsh</a> <a href="../../tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="../../tags/编程/" style="font-size: 10px;">编程</a> <a href="../../tags/编程技巧/" style="font-size: 10px;">编程技巧</a> <a href="../../tags/编程规范/" style="font-size: 10px;">编程规范</a> <a href="../../tags/设备树/" style="font-size: 10px;">设备树</a> <a href="../../tags/高级特性/" style="font-size: 13.33px;">高级特性</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="../../index.html">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="../../archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="../../about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="../../tags/C-C/" style="font-size: 16.67px;">C/C++</a> <a href="../../tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="../../tags/Java/" style="font-size: 10px;">Java</a> <a href="../../tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="../../tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="../../tags/Linux/" style="font-size: 20px;">Linux</a> <a href="../../tags/Linux驱动/" style="font-size: 10px;">Linux驱动</a> <a href="../../tags/Pinctrl/" style="font-size: 10px;">Pinctrl</a> <a href="../../tags/Python/" style="font-size: 10px;">Python</a> <a href="../../tags/git/" style="font-size: 10px;">git</a> <a href="../../tags/kernel-API/" style="font-size: 10px;">kernel API</a> <a href="../../tags/shell/" style="font-size: 13.33px;">shell</a> <a href="../../tags/zsh/" style="font-size: 10px;">zsh</a> <a href="../../tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="../../tags/编程/" style="font-size: 10px;">编程</a> <a href="../../tags/编程技巧/" style="font-size: 10px;">编程技巧</a> <a href="../../tags/编程规范/" style="font-size: 10px;">编程规范</a> <a href="../../tags/设备树/" style="font-size: 10px;">设备树</a> <a href="../../tags/高级特性/" style="font-size: 13.33px;">高级特性</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="../../js/search.js"></script>
+<script src="../../js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="../../js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="../../js/animate.js"></script>
+
+
+  <script src="../../js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>

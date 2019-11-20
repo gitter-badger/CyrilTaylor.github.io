@@ -927,17 +927,15 @@ span.article-type {
   font-size: 75%;
   border-radius: 50%;
 }
-span.article-type.type-1 {
+span.article-type.type-original {
   color: #ca0c16;
-  border: 1px solid #f4ced0;
+  border: 1px solid #ffa39e;
+  background: rgba(255,163,158,0.31);
 }
-span.article-type.type-2 {
-  color: #87ca5f;
-  border: 1px solid #e2f3d5;
-}
-span.article-type.type-4 {
-  color: #78a5e5;
-  border: 1px solid #d7e5f9;
+span.article-type.type-reprint {
+  color: #009003;
+  border: 1px solid #b7eb8f;
+  background: rgba(183,235,143,0.31);
 }
 .article-header .header-cate {
   background: #0cc;
