@@ -3,22 +3,22 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>终极学习法--费曼技巧(The Feynman Technique) | 岁月静好</title>
+  <title>Shell图形化 | 岁月静好</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Cyril Taylor,Cyril's Blog">
   
-  <meta name="description" content="费曼学习法其实是将所学的知识通过教授他人的方式反复进行梳理简化，简而言之，以授促学。">
+  <meta name="description" content="whiptail Internal colour palette of whiptail may be overwritten at compilation by providing a path to a file containing color definitions. In ubuntu sudo update-alternatives --config newt-palette pro">
 <meta property="og:type" content="article">
-<meta property="og:title" content="终极学习法--费曼技巧(The Feynman Technique)">
-<meta property="og:url" content="https://cyriltaylor.github.io/posts/2254807049/index.html">
+<meta property="og:title" content="Shell图形化">
+<meta property="og:url" content="https://cyriltaylor.github.io/posts/3842726194/index.html">
 <meta property="og:site_name" content="岁月静好">
-<meta property="og:description" content="费曼学习法其实是将所学的知识通过教授他人的方式反复进行梳理简化，简而言之，以授促学。">
+<meta property="og:description" content="whiptail Internal colour palette of whiptail may be overwritten at compilation by providing a path to a file containing color definitions. In ubuntu sudo update-alternatives --config newt-palette pro">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-14T02:28:41.597Z">
+<meta property="og:updated_time" content="2019-11-21T12:32:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="终极学习法--费曼技巧(The Feynman Technique)">
-<meta name="twitter:description" content="费曼学习法其实是将所学的知识通过教授他人的方式反复进行梳理简化，简而言之，以授促学。">
+<meta name="twitter:title" content="Shell图形化">
+<meta name="twitter:description" content="whiptail Internal colour palette of whiptail may be overwritten at compilation by providing a path to a file containing color definitions. In ubuntu sudo update-alternatives --config newt-palette pro">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -104,20 +104,20 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-杂记/费曼学习法" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-shell/Shell图形化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      <span class="article-type type-original">原</span>终极学习法--费曼技巧(The Feynman Technique)
+      <span class="article-type type-original">原</span>Shell图形化
     </h1>
     <div class="post-title-bar">
       <ul>
           
         <li>
-          <i class="fa fa-calendar"></i>  2019-10-22
+          <i class="fa fa-calendar"></i>  2019-11-21
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -133,15 +133,29 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>知识有两种类型，一种是注重了解事物的名称，可以认为是认知的过程；一类是注重了解事物本身，可以认为是理解的过程。</p>
+            <h2 id="whiptail"><a class="markdownIt-Anchor" href="#whiptail"></a> whiptail</h2>
+<p>Internal colour palette of whiptail may be overwritten at compilation by providing a path to a file containing color definitions.</p>
+<p>In ubuntu <code>sudo update-alternatives --config newt-palette provides</code> a way of selecting between ubuntu palette and original palette.</p>
+<p>The location of this file can be overriden by setting the <code>NEWT_COLORS_FILE</code> to point to an alternative file.</p>
+<p>Furthermore both previous overrides can be overriden by setting the <code>NEWT_COLORS</code> environment variable.</p>
+<p>The structure of the definitions is:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name=[<span class="built_in">fg</span>],[<span class="built_in">bg</span>][;|:|\n|\r|\t]name2=[<span class="built_in">fg</span>],[<span class="built_in">bg</span>]]...</span><br></pre></td></tr></table></figure>
+<p>name can be:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">root                  root <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">border                border <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">window                window <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">shadow                shadow <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">title                 title <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">button                button <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">actbutton             active button <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">checkbox              checkbox <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">actcheckbox           active checkbox <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">entry                 entry box <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">label                 label <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">listbox               listbox <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">actlistbox            active listbox <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">textbox               textbox <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">acttextbox            active textbox <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">helpline              <span class="built_in">help</span> line</span><br><span class="line">roottext              root text</span><br><span class="line">emptyscale            scale full</span><br><span class="line">fullscale             scale empty</span><br><span class="line">disentry              disabled entry <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">compactbutton         compact button <span class="built_in">fg</span>, <span class="built_in">bg</span></span><br><span class="line">actsellistbox         active &amp; sel listbox</span><br><span class="line">sellistbox            selected listbox</span><br></pre></td></tr></table></figure>
+<p><code>bg</code> and <code>fg</code> can be:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">color0  or black</span><br><span class="line">color1  or red</span><br><span class="line">color2  or green</span><br><span class="line">color3  or brown</span><br><span class="line">color4  or blue</span><br><span class="line">color5  or magenta</span><br><span class="line">color6  or cyan</span><br><span class="line">color7  or lightgray</span><br><span class="line">color8  or gray</span><br><span class="line">color9  or brightred</span><br><span class="line">color10 or brightgreen</span><br><span class="line">color11 or yellow</span><br><span class="line">color12 or brightblue</span><br><span class="line">color13 or brightmagenta</span><br><span class="line">color14 or brightcyan</span><br><span class="line">color15 or white</span><br></pre></td></tr></table></figure>
+<p>Example displaying a message box with red window background:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">NEWT_COLORS=<span class="string">'</span></span><br><span class="line"><span class="string">  window=,red</span></span><br><span class="line"><span class="string">  border=white,red</span></span><br><span class="line"><span class="string">  textbox=white,red</span></span><br><span class="line"><span class="string">  button=black,white</span></span><br><span class="line"><span class="string">'</span> \</span><br><span class="line">whiptail --msgbox <span class="string">"passwords don't match"</span> 0 0</span><br></pre></td></tr></table></figure>
+<p>Appending to ubuntu colors:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">readarray</span> -t newtcols &lt; /etc/newt/palette</span><br><span class="line"></span><br><span class="line">newtcols_error=(</span><br><span class="line">   window=,red</span><br><span class="line">   border=white,red</span><br><span class="line">   textbox=white,red</span><br><span class="line">   button=black,white</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">NEWT_COLORS=<span class="string">"<span class="variable">$&#123;newtcols[@]&#125;</span> <span class="variable">$&#123;newtcols_error[@]&#125;</span>"</span> \</span><br><span class="line">whiptail --msgbox <span class="string">"passwords don't match"</span> 0 0</span><br></pre></td></tr></table></figure>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年11月14日 10:28</p>
+        <p>最后更新： 2019年11月21日 20:32</p>
 
             <p>版权声明：本文为<a href="https://cyriltaylor.github.io">Cyril Taylor</a>原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。</p>
 
-        <p>本文链接： <a class="post-url" href="" title="终极学习法--费曼技巧(The Feynman Technique)">https://cyriltaylor.github.io/posts/2254807049/</a></p>
+        <p>本文链接： <a class="post-url" href="" title="Shell图形化">https://cyriltaylor.github.io/posts/3842726194/</a></p>
         <footer>
 
 
@@ -203,7 +217,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://cyriltaylor.github.io/posts/2254807049/&title=《终极学习法--费曼技巧(The Feynman Technique)》 — 岁月静好&pic=feynman-technique-learning.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://cyriltaylor.github.io/posts/3842726194/&title=《Shell图形化》 — 岁月静好&pic=https://cyriltaylor.github.ioimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -213,22 +227,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://cyriltaylor.github.io/posts/2254807049/&title=《终极学习法--费曼技巧(The Feynman Technique)》 — 岁月静好&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://cyriltaylor.github.io/posts/3842726194/&title=《Shell图形化》 — 岁月静好&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://cyriltaylor.github.io/posts/2254807049/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://cyriltaylor.github.io/posts/3842726194/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《终极学习法--费曼技巧(The Feynman Technique)》 — 岁月静好&url=https://cyriltaylor.github.io/posts/2254807049/&via=https://cyriltaylor.github.io" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Shell图形化》 — 岁月静好&url=https://cyriltaylor.github.io/posts/3842726194/&via=https://cyriltaylor.github.io" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://cyriltaylor.github.io/posts/2254807049/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://cyriltaylor.github.io/posts/3842726194/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -238,7 +252,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://cyriltaylor.github.io/posts/2254807049/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://cyriltaylor.github.io/posts/3842726194/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -254,22 +268,18 @@
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#whiptail"><span class="post-toc-text"> whiptail</span></a></li></ol>
+        </nav>
+    </aside>
+    
 
 <nav id="article-nav">
   
-    <a href="../3542554366/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          git命令详解
-        
-      </span>
-    </a>
   
-  
-    <a href="../4193374346/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">Linux内核驱动-GPIO</span>
+    <a href="../916534012/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">UML建模详解</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   

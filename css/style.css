@@ -1113,6 +1113,7 @@ span.article-type.type-reprint {
   float: left;
   width: 300px;
   height: 150px;
+  border-radius: 0.5em;
   overflow: hidden;
 }
 .article-entry .article-img a {
@@ -2408,24 +2409,27 @@ pre .javascript .function {
   z-index: 998;
   width: 400px;
   padding: 30px;
-  background: #fff;
+  background: rgba(255,255,255,0.5);
   opacity: 0;
   box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
+  border-radius: 1em;
 }
 .search-wrap .search-field {
   padding: 10px;
   width: 360px;
   border: 0;
+  border-radius: 1em;
   color: #666;
   font-weight: normal;
-  background: #f1f1f1;
+  background: rgba(240,240,240,0.6);
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
 }
 .search-wrap .search-field:focus {
-  background: #e8e8e8;
+  background: rgba(230,230,230,0.6);
+  border-radius: 1em;
 }
 .search-wrap #search-submit {
   color: #0cc;
@@ -2448,15 +2452,15 @@ pre .javascript .function {
   top: 0;
   right: 0;
   display: block;
-  padding: 1px 10px;
+  border-radius: 1em;
+  padding: 1px 5px;
   font-size: 20px;
-  background: #e8e8e8;
+  background: rgba(230,230,230,0);
   color: #666;
   cursor: pointer;
 }
 .search-wrap .search-close:hover {
-  background: #0cc;
-  color: #fff;
+  color: #0cc;
 }
 .search-container {
   position: absolute;

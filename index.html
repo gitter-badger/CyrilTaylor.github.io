@@ -102,6 +102,56 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
+    <article id="post-shell/Shell图形化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="posts/3842726194/"  ><span class="article-type type-original">原</span>Shell图形化</a>
+    </h1>
+  
+
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="posts/3842726194/" >
+                
+                <img src="https://cyriltaylor.github.io/images/banner.jpg" alt="Shell图形化" title="Shell图形化">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                 whiptail
+Internal colour palette of whiptail may be overwritten at compilation by providing a path to a file containing color definitions.
+In ubuntu sudo update-alternatives --config new...
+            </p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2019-11-21</li>
+            
+            
+        </ul>
+        
+            <a href="posts/3842726194/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-tools/UML建模详解" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -658,118 +708,15 @@ local Echo on(Ctrl...
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/C/C++/" class="color1">C/C++</a>
-      
     <a href="/tags/高级特性/" class="color5">高级特性</a>
+      
+    <a href="/tags/C/C++/" class="color1">C/C++</a>
       
   </li>
 
         </ul>
         
             <a href="posts/1473815809/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-Linux/Linux设备树" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="posts/3787073306/"  ><span class="article-type type-reprint">转</span>Linux设备树</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                    <a href="/categories/Linux/">Linux</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="posts/3787073306/" >
-                
-                <img src="posts/3787073306/The DeviceTree Specification.png" alt="Linux设备树" title="Linux设备树">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                <!-- TOC -->
-<ul>
-<li><a href="#1-%E8%AE%BE%E5%A4%87%E6%A0%91%E5%9F%BA%E7%A1%80">1. 设备树基础</a>
-<ul>
-<li><a href="#11-%E8%AE%BE%E5%A4%87%E6%A0%91%E7%9A%84%E5%BC%95%E5%85%A5">1.1. 设备树的引入</a></li>
-<li><a href="#12-%E8%AE%BE%E5%A4%87%E6%A0%91%E7%89%B9%E7%82%B9">1.2. 设备树特点</a></li>
-<li><a href="#13-%E7%BC%96%E8%AF%91%E8%AE%BE%E5%A4%87%E6%A0%91">1.3. 编译设备树</a></li>
-</ul>
-</li>
-<li><a href="#2-%E8%AE%BE%E5%A4%87%E6%A0%91dtsdtsi%E6%A0%BC%E5%BC%8F">2. 设备树dts/dtsi格式</a></li>
-<li><a href="#3-%E8%AE%BE%E5%A4%87%E6%A0%91dtb%E6%A0%BC%E5%BC%8F%E5%92%8C%E7%BB%93%E6%9E%84">3. 设备树dtb格式和结构</a></li>
-<li><a href="#4-%E5%86%85%E6%A0%B8heads%E5%AF%B9uboot%E4%BC%A0%E5%8F%82%E7%9A%84%E5%A4%84%E7%90%86">4. 内核head.S对uboot传参的处理</a></li>
-<li><a href="#5-%E8%AE%BE%E5%A4%87%E6%A0%91%E5%AF%B9%E5%B9%B3%E5%8F%B0%E4%BF%A1%E6%81%AF%E7%9A%84%E5%A4%84%E7%90%86machine_desc">5. 设备树对平台信息的处理machine_desc</a></li>
-<li><a href="#6-%E8%AE%BE%E5%A4%87%E6%A0%91%E5%AF%B9%E8%BF%90%E8%A1%8C%E6%97%B6%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E7%9A%84%E5%A4%84%E7%90%86">6. 设备树对运行时配置信息的处理</a></li>
-<li><a href="#7-dtb%E5%88%B0%E8%AE%BE%E5%A4%87%E8%8A%82%E7%82%B9%E7%9A%84%E8%BD%AC%E6%8D%A2">7. dtb到设备节点的转换</a></li>
-<li><a href="#8-%E8%AE%BE%E5%A4%87%E8%8A%82%E7%82%B9%E5%88%B0%E5%B9%B3%E5%8F%B0%E8%AE%BE%E5%A4%87%E7%9A%84%E8%BD%AC%E6%8D%A2">8. 设备节点到平台设备的转换</a></li>
-<li><a href="#9-platform_device%E5%92%8Cplatform_driver%E5%A6%82%E4%BD%95%E8%AE%A9%E5%8C%B9%E9%85%8D">9. platform_device和platform_driver如何让匹配</a></li>
-<li><a href="#10-%E5%9C%A8%E6%A0%B9%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9F%A5%E7%9C%8B%E8%AE%BE%E5%A4%87%E6%A0%91">10. 在根文件系统中查看设备树</a></li>
-<li><a href="#11-%E5%86%85%E6%A0%B8%E4%B8%AD%E8%AE%BE%E5%A4%87%E6%A0%91%E7%9A%84%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0">11. 内核中设备树的操作函数</a></li>
-<li><a href="#12-uboot%E5%A6%82%E4%BD%95%E7%BB%99%E5%86%85%E6%A0%B8%E4%BC%A0dtb%E6%96%87%E4%BB%B6">12. uboot如何给内核传dtb文件</a></li>
-<li><a href="#13-%E6%9C%89%E4%BA%86%E8%AE%BE%E5%A4%87%E6%A0%91%E5%90%8E%E6%96%B0%E5%86%85%E6%A0%B8%E5%AF%B9%E4%BA%8E%E8%AE%BE%E5%A4%87%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%8D%E5%90%8C%E4%B9%8B%E5%A4%84">13. 有了设备树后新内核对于设备处理的不同之处</a></li>
-<li><a href="#14-aliases%E8%8A%82%E7%82%B9%E5%88%86%E6%9E%90">14. aliases节点分析</a></li>
-<li><a href="#15-%E5%BC%95%E5%85%A5%E8%AE%BE%E5%A4%87%E6%A0%91%E5%AF%B9%E4%B8%AD%E6%96%AD%E7%9A%84%E5%BD%B1%E5%93%8D">15. 引入设备树对中断的影响</a></li>
-<li><a href="#16-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8Birq-domain%E4%BB%8B%E7%BB%8D">16. 番外篇-中断子系统之IRQ Domain介绍</a></li>
-<li><a href="#17-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8Birq-number%E5%92%8C%E4%B8%AD%E6%96%AD%E6%8F%8F%E8%BF%B0%E7%AC%A6">17. 番外篇-中断子系统之IRQ number和中断描述符</a></li>
-<li><a href="#18-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%86%85%E6%A0%B8%E5%AF%B9%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6%E5%99%A8%E7%9A%84%E8%A7%A3%E6%9E%90">18. 番外篇-中断子系统之内核对中断控制器的解析</a></li>
-<li><a href="#19-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%80%E4%B8%AA%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6%E5%99%A8">19. 番外篇-中断子系统之初始化一个中断控制器</a></li>
-<li><a href="#20-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8B%E4%B8%AD%E6%96%AD%E5%8F%B7%E7%9A%84%E6%98%A0%E5%B0%84%E4%B8%8E%E5%8F%8D%E6%98%A0%E5%B0%84%E4%B8%80">20. 番外篇-中断子系统之中断号的映射与反映射[一]</a></li>
-<li><a href="#21-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8B%E4%B8%AD%E6%96%AD%E5%8F%B7%E7%9A%84%E6%98%A0%E5%B0%84%E4%B8%8E%E5%8F%8D%E6%98%A0%E5%B0%84%E4%BA%8C">21. 番外篇-中断子系统之中断号的映射与反映射[二]</a></li>
-<li><a href="#22-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8B%E7%AE%80%E5%8D%95%E4%B8%BE%E4%BE%8B%E4%BD%BF%E7%94%A8">22. 番外篇-中断子系统之简单举例使用</a></li>
-<li><a href="#23-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8B%E9%A9%B1%E5%8A%A8%E7%94%B3%E8%AF%B7api">23. 番外篇-中断子系统之驱动申请API</a></li>
-<li><a href="#24-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8Bsoftirq">24. 番外篇-中断子系统之softirq</a></li>
-<li><a href="#25-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8Btasklet">25. 番外篇-中断子系统之tasklet</a></li>
-<li><a href="#26-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8Bworkqueue1">26. 番外篇-中断子系统之workqueue[1]</a></li>
-<li><a href="#27-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8Bcmwq%E6%A6%82%E8%BF%B02">27. 番外篇-中断子系统之CMWQ概述[2]</a></li>
-<li><a href="#28-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8Bworkqueue%E5%88%9B%E5%BB%BA3">28. 番外篇-中断子系统之workqueue创建[3]</a></li>
-<li><a href="#29-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8Bworkqueue%E5%A4%84%E7%90%86work4">29. 番外篇-中断子系统之workqueue处理work[4]</a></li>
-<li><a href="#30-%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%AD%E6%96%AD%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%8Bworkqueue%E4%BD%BF%E7%94%A8">30. 番外篇-中断子系统之workqueue使用</a></li>
-</ul>
-<!-- /TOC -->
-            </p>
-        </div>
-      
-        
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2019-10-09</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/Linux/" class="color1">Linux</a>
-      
-    <a href="/tags/设备树/" class="color4">设备树</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="posts/3787073306/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
