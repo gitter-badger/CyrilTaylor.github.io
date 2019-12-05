@@ -142,6 +142,7 @@
             } else {
                 searchWrap.css('top','0');
                 searchWrap.css('opacity','0');
+                $('#keywords').val("");
                 $('#search-container').removeClass('search-container-show');
             }
         },
@@ -157,13 +158,19 @@
         Blog.showSearch(true);
         return false;
     });
+
     $('.search-close').click(function(){
         // searchWrap.css('top','0');
         // searchWrap.css('opacity','0');
         // $('#search-container').removeClass('search-container-show');
-        Blog.showSearch(false)
+        Blog.showSearch(false);
     });
-    searchWrap.click(function () {
+
+    searchWrap.click(function (e) {
+        if (e.target.className == "search-item-li-title") {
+            return true;
+        }
+
         return false;
     });
 
@@ -239,7 +246,7 @@
             _mobileHeaderMenuLocked = false;
         }, 350);
     });
-    
+
     //Share
     if (w.mihoConfig.share) {
         Blog.share();

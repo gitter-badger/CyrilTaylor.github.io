@@ -937,6 +937,11 @@ span.article-type.type-reprint {
   border: 1px solid #b7eb8f;
   background: rgba(183,235,143,0.31);
 }
+span.article-type.type-revise {
+  color: #0aa;
+  border: 1px solid #04d8d8;
+  background: rgba(4,216,216,0.31);
+}
 .article-header .header-cate {
   background: #0cc;
   position: absolute;
