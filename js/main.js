@@ -65,6 +65,17 @@
                 toc.removeClass("post-toc-not-top");
                 toc.addClass("post-toc-top");
             }
+            tocs = $(".markdownIt-Anchor")
+            for (i=0; i<tocs.length; i++) {
+                if(tocs[i].getBoundingClientRect().y > clientHeight) {
+                    console.log(tocs[i-1>0?i-1:i].getAttribute("href"));
+                    break;
+                }
+                if(i == tocs.length -1) {
+                    console.log(tocs[i].getAttribute("href"));
+                    break;
+                }
+            }
         },
         showMobileHeaderMenu: function (status) {
             if (_mobileHeaderMenuLocked) {
