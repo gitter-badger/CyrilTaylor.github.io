@@ -1503,7 +1503,7 @@ span.article-type.type-revise {
 .post-toc-wrap {
   position: fixed;
   border-radius: 3px;
-  max-width: 100%;
+  max-width: 300px;
   max-height: 400px;
   color: #313131;
 }
@@ -1559,7 +1559,7 @@ span.article-type.type-revise {
   padding: 3px 10px;
   line-height: 1.5rem;
   color: inherit;
-  word-break: break-all;
+  word-break: normal;
   text-decoration: none;
 }
 .post-toc-link:hover {
@@ -1863,13 +1863,23 @@ video::cue {
 }
 .article-entry .highlight .gutter pre {
   text-align: right;
-  padding-right: 20px;
+  margin-right: 10px;
+  padding-right: 5px;
+  border-right: thin solid;
 }
 .article-entry .highlight .line {
   height: 22.400000000000002px;
 }
 .article-entry .highlight .line.marked {
   background: #515151;
+}
+.article-entry .highlight .addition {
+  background: #dfd;
+  display: inline-block;
+}
+.article-entry .highlight .deletion {
+  background: #fdd;
+  display: inline-block;
 }
 .article-entry .gist {
   margin: 0 -15px;

@@ -12,6 +12,7 @@
         mobileHeaderMenu = $("#mobile-header-menu-nav"),
         _mobileHeaderMenuLocked = false,
         sideMenuBoxIsOpen = false,
+        lastAnchor = 0,
         clientHeight = d.documentElement.clientHeight; //获取可视区的高度
     var Blog = {
         showHeaderMenu: function (scrollTop) {
@@ -65,17 +66,30 @@
                 toc.removeClass("post-toc-not-top");
                 toc.addClass("post-toc-top");
             }
-            tocs = $(".markdownIt-Anchor")
-            for (i=0; i<tocs.length; i++) {
-                if(tocs[i].getBoundingClientRect().y > clientHeight) {
-                    console.log(tocs[i-1>0?i-1:i].getAttribute("href"));
+            var anchorList = $(".markdownIt-Anchor");
+            var tocsList = $(".post-toc-link");
+            var currentAnchor = lastAnchor;
+            var offset = 0;
+            var tocsHeight = tocsList[tocsList.length - 1].getBoundingClientRect().y
+                             - tocsList[0].getBoundingClientRect().y;
+            for (i = 1; i < anchorList.length; i++) {
+                if(anchorList[i].getBoundingClientRect().y > clientHeight) {
+                    currentAnchor = i - 1;
                     break;
                 }
-                if(i == tocs.length -1) {
-                    console.log(tocs[i].getAttribute("href"));
+                if(i == anchorList.length - 1) {
+                    currentAnchor = i;
+                    offset += tocsList[i].offsetHeight;
                     break;
                 }
+                offset += tocsList[i].offsetHeight;
             }
+            if(currentAnchor == lastAnchor) return;
+            $(tocsList[lastAnchor]).removeClass("active");
+            offset = offset < tocsHeight - clientHeight * 0.236 ? offset : tocsHeight - clientHeight * 0.236;
+            toc[0].style.top = (clientHeight * 0.382 - offset) + "px";
+            lastAnchor = currentAnchor;
+            $(tocsList[currentAnchor]).addClass("active");
         },
         showMobileHeaderMenu: function (status) {
             if (_mobileHeaderMenuLocked) {
